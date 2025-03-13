@@ -25,7 +25,7 @@ public class User {
     private String email;
 
     @Enumerated(EnumType.STRING)
-    private UserType role;
+    private UserType role = UserType.USER;
 
     private double score = 0.0;
 
