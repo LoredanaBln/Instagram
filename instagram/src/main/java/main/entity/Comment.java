@@ -16,6 +16,14 @@ public class Comment {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String text;
+
+    @Column(nullable = false)
+    private LocalDateTime creationTime;
+
+    private String imagePath;
+
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User author;
@@ -30,14 +38,6 @@ public class Comment {
 
     @OneToMany(mappedBy = "parentComment", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> replies = new ArrayList<>();
-
-    @Column(nullable = false, columnDefinition = "TEXT")
-    private String text;
-
-    @Column(nullable = false)
-    private LocalDateTime creationTime;
-
-    private String imagePath;
 
     @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Vote> votes = new ArrayList<>();
