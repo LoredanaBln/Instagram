@@ -37,7 +37,7 @@ public class Comment {
     @Column(nullable = false)
     private LocalDateTime creationTime;
 
-    private String imageUrl;
+    private String imagePath;
 
     @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Vote> votes = new ArrayList<>();
