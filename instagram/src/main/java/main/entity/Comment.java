@@ -34,5 +34,10 @@ public class Comment {
     @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Vote> votes = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "parent_comment_id")
+    private Comment parentComment;
 
+    @OneToMany(mappedBy = "parentComment", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> replies = new ArrayList<>();
 }

@@ -1,2 +1,5 @@
-package main.entity;public enum UserType {
+package main.entity;
+
+public enum UserType {
+    MODERATOR, USER;
 }
