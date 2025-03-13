@@ -27,6 +27,7 @@ public class Comment {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String text;
 
+    @Column(nullable = false)
     private LocalDateTime creationTime;
 
     private String imageUrl;
@@ -34,5 +35,8 @@ public class Comment {
     @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Vote> votes = new ArrayList<>();
 
-
+    @PrePersist
+    protected void onCreate() {
+        this.creationTime = LocalDateTime.now();
+    }
 }
