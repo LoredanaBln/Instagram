@@ -9,6 +9,8 @@ import main.entity.User;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -29,7 +31,7 @@ public class PostDTO {
                 post.getCreatedAt(),
                 post.getUpdatedAt()
         );
-        this.relationships = includeRelationships ? new PostRelationships(post.getAuthor()) : null;
+        this.relationships = includeRelationships ? new PostRelationships(post.getAuthor(), post.getParent(), post.getComments()) : null;
         this.links = new PostLinks(this.id.toString());
     }
 
@@ -57,9 +59,15 @@ public class PostDTO {
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     public static class PostRelationships {
         private UserDTO author;
+        private PostDTO post;
+        private List<PostDTO> comments;
 
-        public PostRelationships(User user) {
+        public PostRelationships(User user, Post parent, List<Post> comments) {
             this.author = UserDTO.withoutRelationships(user);
+            if (parent != null) {
+                this.post = PostDTO.withoutRelationships(parent);
+            }
+            this.comments = comments.stream().map(PostDTO::withoutRelationships).collect(Collectors.toList());
         }
     }
 

@@ -32,11 +32,19 @@ public class PostService {
         User author = userRepository.findById(authorId)
                 .orElseThrow(() -> new RuntimeException("User not found with ID: " + authorId));
 
+        Post parent = null;
+        if (request.getRelationships().getPost() != null) {
+            Long postId = request.getRelationships().getPost().getId();
+            parent = postRepository.findById(postId)
+                    .orElseThrow(() -> new RuntimeException("Post not found with ID: " + postId));
+        }
+
         Post post = new Post();
         post.setTitle(request.getAttributes().getTitle());
         post.setText(request.getAttributes().getText());
         post.setImagePath(request.getAttributes().getImagePath());
         post.setAuthor(author);
+        post.setParent(parent);
 
         return PostDTO.withRelationships(commentRepository.save(post));
     }
