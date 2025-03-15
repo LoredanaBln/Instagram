@@ -30,7 +30,7 @@ public class Post {
     @Enumerated(EnumType.STRING)
     private PostStatus status;
 
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at", nullable = false)
