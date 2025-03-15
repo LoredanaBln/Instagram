@@ -14,12 +14,11 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class PostService {
-    private final IPostRepository commentRepository;
     private final IPostRepository postRepository;
     private final IUserRepository userRepository;
 
     public List<PostDTO> getAll() {
-        return commentRepository.findAll()
+        return postRepository.findAll()
             .stream()
             .map(PostDTO::withRelationships)
             .collect(Collectors.toList());
@@ -46,12 +45,18 @@ public class PostService {
         post.setAuthor(author);
         post.setParent(parent);
 
-        return PostDTO.withRelationships(commentRepository.save(post));
+        return PostDTO.withRelationships(postRepository.save(post));
+    }
+
+    public PostDTO get(Long id) {
+        return postRepository.findById(id)
+                .map(PostDTO::withRelationships)
+                .orElseThrow(() -> new RuntimeException("Post not found with ID: " + id));
     }
 
     public Post updateComment(Long id, String newText) {
-        Post post = commentRepository.findById(id).orElseThrow();
+        Post post = postRepository.findById(id).orElseThrow();
         post.setText(newText);
-        return commentRepository.save(post);
+        return postRepository.save(post);
     }
 }

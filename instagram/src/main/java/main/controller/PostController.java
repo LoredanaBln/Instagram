@@ -29,4 +29,13 @@ public class PostController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(createdComment);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PostDTO> getPostById(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(postService.get(id));
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
