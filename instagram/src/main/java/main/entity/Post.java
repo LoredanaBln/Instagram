@@ -11,31 +11,44 @@ import java.util.Set;
 
 @Data
 @Entity
-@Table(name = "post")
+@Table(name = "posts")
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "post_id", nullable = false)
+    @Column(name = "id", nullable = false)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User author;
-
-    @Column(name = "title", nullable = false)
+    @Column(nullable = false)
     private String title;
 
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String text;
 
-    private LocalDateTime creationTime;
-
-    private String pictureUrl;
+    @Column(name = "image_path")
+    private String imagePath;
 
     @Enumerated(EnumType.STRING)
     private PostStatus status;
 
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User author;
+
+    @ManyToOne
+    @JoinColumn(name = "parent_id")
+    private Post parent;
+
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Post> posts = new ArrayList<>();
+
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Comment> comments = new ArrayList<>();
+    private List<Vote> votes = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(name = "post_tags",
@@ -43,6 +56,14 @@ public class Post {
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private Set<Tag> tags = new HashSet<>();
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Vote> votes = new ArrayList<>();
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+        this.status = PostStatus.IN_PROGRESS;
+    }
+
+    protected void onUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
 }

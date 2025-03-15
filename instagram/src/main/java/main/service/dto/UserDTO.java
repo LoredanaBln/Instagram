@@ -3,7 +3,7 @@ package main.service.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import main.entity.Comment;
+import main.entity.Post;
 import main.entity.User;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -22,7 +22,7 @@ public class UserDTO {
     public UserDTO(User user, Boolean includeRelationships) {
         this.id = user.getId();
         this.attributes = new UserAttributes(user.getUsername());
-        this.relationships = includeRelationships ? new UserRelationships(user.getComments()) : null;
+        this.relationships = includeRelationships ? new UserRelationships(user.getPosts()) : null;
         this.links = new UserLinks(this.id.toString());
     }
 
@@ -46,11 +46,11 @@ public class UserDTO {
     @Data
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     public static class UserRelationships {
-        private List<CommentDTO> comments;
+        private List<PostDTO> comments;
 
-        public UserRelationships(List<Comment> comments) {
-            this.comments = comments.stream()
-                .map(CommentDTO::withoutRelationships)
+        public UserRelationships(List<Post> posts) {
+            this.comments = posts.stream()
+                .map(PostDTO::withoutRelationships)
                 .collect(Collectors.toList());
         }
     }

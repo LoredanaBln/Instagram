@@ -12,10 +12,6 @@ public class Vote {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "comment_id")
-    private Comment comment;
-
-    @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
@@ -24,6 +20,6 @@ public class Vote {
     private Post post;
 
     @Enumerated(EnumType.STRING)
-    private VoteType voteType;
+    private VoteType type;
 
 }
