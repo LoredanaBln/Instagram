@@ -9,14 +9,13 @@ import lombok.Setter;
 @Entity
 @Table(name = "tag")
 public class Tag {
-    @Id
-    @Column(name = "id", nullable = false)
-    private Long tag_id;
+  @Id
+  @Column(name = "id", nullable = false)
+  private Long tag_id;
 
-    @ManyToOne
-    @JoinColumn(name = "post_post_id")
-    private Post post;
+  @ManyToOne
+  @JoinColumn(name = "post_post_id")
+  private Post post;
 
-    private String title;
-
+  private String title;
 }
