@@ -1,17 +1,20 @@
 package main.service.dto;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import main.entity.Comment;
+import main.entity.User;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.time.LocalDateTime;
 
 @Data
-@Getter
-@Setter
+@NoArgsConstructor
 public class CommentDTO {
     private String type = "comments";
     private Long id;
@@ -19,11 +22,20 @@ public class CommentDTO {
     private CommentRelationships relationships;
     private CommentLinks links;
 
-    public CommentDTO(Comment comment) {
+    // INFO: If there are going to be more optional fields consider Builder pattern.
+    public CommentDTO(Comment comment, Boolean includeRelationships) {
         this.id = comment.getId();
         this.attributes = new CommentAttributes(comment.getText(), comment.getImagePath(), comment.getCreationTime());
-        this.relationships = new CommentRelationships();
+        this.relationships = includeRelationships ? new CommentRelationships(comment.getAuthor()) : null;
         this.links = new CommentLinks(this.id.toString());
+    }
+
+    public static CommentDTO withRelationships(Comment comment) {
+        return new CommentDTO(comment, true);
+    }
+
+    public static CommentDTO withoutRelationships(Comment comment) {
+        return new CommentDTO(comment, false);
     }
 
     @Data
@@ -42,7 +54,11 @@ public class CommentDTO {
     @Data
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     public static class CommentRelationships {
-        // TODO: include comment relationship
+        private UserDTO author;
+
+        public CommentRelationships(User user) {
+            this.author = UserDTO.withoutRelationships(user);
+        }
     }
 
     @Data

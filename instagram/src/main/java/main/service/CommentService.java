@@ -1,28 +1,23 @@
 package main.service;
 
+import lombok.RequiredArgsConstructor;
 import main.entity.Comment;
-import main.entity.Post;
-import main.entity.User;
 import main.repository.ICommentRepository;
 import main.service.dto.CommentDTO;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class CommentService {
     private final ICommentRepository commentRepository;
 
-    public CommentService(ICommentRepository commentRepository) {
-        this.commentRepository = commentRepository;
-    }
-
-    public List<CommentDTO> getAllComments() {
+    public List<CommentDTO> getAll() {
         return commentRepository.findAll()
             .stream()
-            .map(CommentDTO::new)
+            .map(CommentDTO::withRelationships)
             .collect(Collectors.toList());
     }
 
