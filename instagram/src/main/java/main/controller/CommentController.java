@@ -18,6 +18,15 @@ public class CommentController {
 
     @GetMapping
     public ResponseEntity<List<CommentDTO>> index() {
-        return ResponseEntity.status(HttpStatus.OK.value()).body(commentService.getAllComments());
+        return ResponseEntity.status(HttpStatus.OK.value()).body(commentService.getAll());
+    }
+
+    @PostMapping
+    public ResponseEntity<CommentDTO> create(@RequestBody CommentDTO request) {
+        // TODO: Add authorization
+
+        CommentDTO createdComment = commentService.createComment(request);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdComment);
     }
 }

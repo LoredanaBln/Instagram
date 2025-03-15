@@ -39,6 +39,7 @@ public class CommentDTO {
     }
 
     @Data
+    @NoArgsConstructor
     public static class CommentAttributes {
         private String text;
         private String imagePath;
@@ -52,6 +53,7 @@ public class CommentDTO {
     }
 
     @Data
+    @NoArgsConstructor
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     public static class CommentRelationships {
         private UserDTO author;
@@ -62,6 +64,7 @@ public class CommentDTO {
     }
 
     @Data
+    @NoArgsConstructor
     public static class CommentLinks {
         private String self;
         private String parent;
