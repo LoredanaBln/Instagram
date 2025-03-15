@@ -63,6 +63,7 @@ public class Post {
         this.status = PostStatus.IN_PROGRESS;
     }
 
+    @PreUpdate
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
