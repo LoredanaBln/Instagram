@@ -25,7 +25,7 @@ public class PostController {
     public ResponseEntity<PostDTO> create(@RequestBody PostDTO request) {
         // TODO: Add authorization
 
-        PostDTO createdComment = postService.createComment(request);
+        PostDTO createdComment = postService.create(request);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(createdComment);
     }
@@ -38,6 +38,18 @@ public class PostController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<PostDTO> updatePostById(@PathVariable Long id, @RequestBody PostDTO postDTO) {
+        // TODO: Add authorization
+
+        try {
+            return ResponseEntity.ok(postService.update(postDTO)); // Return updated post with 200 OK
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build(); // Return 404 if post not found
+        }
+    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {

@@ -24,7 +24,7 @@ public class PostService {
             .collect(Collectors.toList());
     }
 
-    public PostDTO createComment(PostDTO request) {
+    public PostDTO create(PostDTO request) {
         // TODO: Implement validation for each edge case
 
         Long authorId = request.getRelationships().getAuthor().getId();
@@ -54,10 +54,23 @@ public class PostService {
                 .orElseThrow(() -> new RuntimeException("Post not found with ID: " + id));
     }
 
-    public Post updateComment(Long id, String newText) {
-        Post post = postRepository.findById(id).orElseThrow();
-        post.setText(newText);
-        return postRepository.save(post);
+    public PostDTO update(PostDTO request) {
+        Post post = postRepository.findById(request.getId())
+                .orElseThrow(() -> new RuntimeException("Post not found with ID: " + request.getId()));
+
+        if (request.getAttributes().getTitle() != null) {
+            post.setTitle(request.getAttributes().getTitle());
+        }
+
+        if (request.getAttributes().getText() != null) {
+            post.setText(request.getAttributes().getText());
+        }
+
+        if (request.getAttributes().getImagePath() != null) {
+            post.setImagePath(request.getAttributes().getImagePath());
+        }
+
+        return PostDTO.withRelationships(postRepository.save(post));
     }
 
     public void delete(Long id) {
