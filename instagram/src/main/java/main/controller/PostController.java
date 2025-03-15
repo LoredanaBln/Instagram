@@ -31,11 +31,23 @@ public class PostController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PostDTO> getPostById(@PathVariable Long id) {
+    public ResponseEntity<PostDTO> show(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(postService.get(id));
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        // TODO: Add authorization
+        try {
+            postService.delete(id);
+            return ResponseEntity.noContent().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }

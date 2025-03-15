@@ -59,4 +59,8 @@ public class PostService {
         post.setText(newText);
         return postRepository.save(post);
     }
+
+    public void delete(Long id) {
+        postRepository.deleteById(id);
+    }
 }
