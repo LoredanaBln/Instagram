@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import main.entity.Post;
 import main.entity.User;
+import main.service.LocalImageProvider;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @Data
@@ -23,13 +24,16 @@ public class PostDTO {
   // INFO: If there are going to be more optional fields consider Builder pattern.
   public PostDTO(Post post, Boolean includeRelationships) {
     this.id = post.getId();
+
+    // TODO: Add DI LocalImageProvider
     this.attributes =
         new PostAttributes(
             post.getTitle(),
             post.getText(),
-            post.getImagePath(),
+            new LocalImageProvider().getUrl(post.getImagePath()),
             post.getCreatedAt(),
-            post.getUpdatedAt());
+            post.getUpdatedAt()
+        );
     this.relationships =
         includeRelationships
             ? new PostRelationships(post.getAuthor(), post.getParent(), post.getComments())

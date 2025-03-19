@@ -1,5 +1,6 @@
 package main.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import main.repository.IPostRepository;
 import main.repository.IUserRepository;
 import main.service.dto.PostDTO;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +24,7 @@ public class PostService {
         .collect(Collectors.toList());
   }
 
-  public PostDTO create(PostDTO request) {
+  public PostDTO create(PostDTO request,  MultipartFile image) throws IOException {
     // TODO: Implement validation for each edge case
 
     Long authorId = request.getRelationships().getAuthor().getId();
@@ -43,7 +45,7 @@ public class PostService {
     Post post = new Post();
     post.setTitle(request.getAttributes().getTitle());
     post.setText(request.getAttributes().getText());
-    post.setImagePath(request.getAttributes().getImagePath());
+    post.setImagePath(new LocalImageProvider().saveImage(image));
     post.setAuthor(author);
     post.setParent(parent);
 

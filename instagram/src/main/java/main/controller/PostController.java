@@ -1,5 +1,6 @@
 package main.controller;
 
+import java.io.IOException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import main.service.PostService;
@@ -7,6 +8,7 @@ import main.service.dto.PostDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -21,12 +23,19 @@ public class PostController {
   }
 
   @PostMapping
-  public ResponseEntity<PostDTO> create(@RequestBody PostDTO request) {
+  public ResponseEntity<PostDTO> create(
+    @ModelAttribute PostDTO request,
+    @RequestParam(value = "image", required = false) MultipartFile image
+  ) {
     // TODO: Add authorization
 
-    PostDTO createdComment = postService.create(request);
+    try {
+      PostDTO createdComment = postService.create(request, image);
 
-    return ResponseEntity.status(HttpStatus.CREATED).body(createdComment);
+      return ResponseEntity.status(HttpStatus.CREATED).body(createdComment);
+    } catch (java.io.IOException exception) {
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
   }
 
   @GetMapping("/{id}")
