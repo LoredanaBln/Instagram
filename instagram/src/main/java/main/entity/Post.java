@@ -60,7 +60,7 @@ public class Post {
   protected void onCreate() {
     this.createdAt = LocalDateTime.now();
     this.updatedAt = LocalDateTime.now();
-    this.status = PostStatus.IN_PROGRESS;
+    this.status = PostStatus.DRAFT;
   }
 
   @PreUpdate
