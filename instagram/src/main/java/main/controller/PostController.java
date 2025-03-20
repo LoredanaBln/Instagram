@@ -1,6 +1,5 @@
 package main.controller;
 
-import java.io.IOException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import main.service.PostService;
@@ -24,9 +23,8 @@ public class PostController {
 
   @PostMapping
   public ResponseEntity<PostDTO> create(
-    @ModelAttribute PostDTO request,
-    @RequestParam(value = "image", required = false) MultipartFile image
-  ) {
+      @ModelAttribute PostDTO request,
+      @RequestParam(value = "image", required = false) MultipartFile image) {
     // TODO: Add authorization
 
     try {

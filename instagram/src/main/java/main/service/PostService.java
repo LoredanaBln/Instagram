@@ -24,7 +24,7 @@ public class PostService {
         .collect(Collectors.toList());
   }
 
-  public PostDTO create(PostDTO request,  MultipartFile image) throws IOException {
+  public PostDTO create(PostDTO request, MultipartFile image) throws IOException {
     // TODO: Implement validation for each edge case
 
     Long authorId = request.getRelationships().getAuthor().getId();
