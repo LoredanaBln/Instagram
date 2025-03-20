@@ -10,19 +10,19 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 public class UserController {
 
-    private final UserService userService;
+  private final UserService userService;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+  public UserController(UserService userService) {
+    this.userService = userService;
+  }
 
-    @PostMapping("/signUp")
-    public ResponseEntity<User> signUpUser(@RequestBody User user){
-        return ResponseEntity.status(HttpStatus.OK.value()).body(userService.registerUser(user));
-    }
+  @PostMapping("/signUp")
+  public ResponseEntity<User> signUpUser(@RequestBody User user) {
+    return ResponseEntity.status(HttpStatus.OK.value()).body(userService.registerUser(user));
+  }
 
-    @GetMapping("/id/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        return ResponseEntity.status(HttpStatus.OK.value()).body(userService.findUserById(id));
-    }
+  @GetMapping("/id/{id}")
+  public ResponseEntity<User> getUserById(@PathVariable Long id) {
+    return ResponseEntity.status(HttpStatus.OK.value()).body(userService.findUserById(id));
+  }
 }
