@@ -22,14 +22,25 @@ public class User {
   @Column(nullable = false)
   private String password;
 
+  @Column(name = "image_path")
+  private String imagePath;
+
   private String email;
 
-  private String role;
+  @Enumerated(EnumType.STRING)
+  private UserType role;
 
-  private double score = 0.0;
+  private double score;
 
-  private boolean isBanned = false;
+  private boolean isBanned;
 
   @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
   private List<Post> posts = new ArrayList<>();
+
+  @PrePersist
+  protected void onCreate() {
+    this.role = UserType.USER;
+    this.score = 0.0;
+    this.isBanned = false;
+  }
 }

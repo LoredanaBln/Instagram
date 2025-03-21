@@ -10,23 +10,25 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/uploads")
 public class MediaController {
-    private final LocalImageProvider imageProvider;
+  private final LocalImageProvider imageProvider;
 
-    public MediaController(LocalImageProvider imageProvider) {
-        this.imageProvider = imageProvider;
+  public MediaController(LocalImageProvider imageProvider) {
+    this.imageProvider = imageProvider;
+  }
+
+  @GetMapping("/{filename}")
+  public ResponseEntity<Resource> getImage(@PathVariable String filename) {
+    try {
+      Resource resource = imageProvider.getImage(filename);
+
+      return ResponseEntity.ok()
+          .contentType(MediaType.IMAGE_JPEG)
+          .header(
+              HttpHeaders.CONTENT_DISPOSITION,
+              "inline; filename=\"" + resource.getFilename() + "\"")
+          .body(resource);
+    } catch (Exception e) {
+      return ResponseEntity.notFound().build();
     }
-
-    @GetMapping("/{filename}")
-    public ResponseEntity<Resource> getImage(@PathVariable String filename) {
-        try {
-            Resource resource = imageProvider.getImage(filename);
-
-            return ResponseEntity.ok()
-                    .contentType(MediaType.IMAGE_JPEG)
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + resource.getFilename() + "\"")
-                    .body(resource);
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
-    }
+  }
 }
