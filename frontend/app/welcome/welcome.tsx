@@ -5,8 +5,8 @@ import './welcome.css';
 
 export function Welcome() {
   React.useEffect(() => {
-    const handleMouseMove = (event) => {
-      const circle = document.getElementById('mouse-circle');
+    const handleMouseMove = (event :MouseEvent) => {
+      const circle = document.getElementById('mouse-circle') as HTMLDivElement;
       circle.style.left = `${event.clientX - 160}px`;
       circle.style.top = `${event.clientY - 160}px`;
     };
