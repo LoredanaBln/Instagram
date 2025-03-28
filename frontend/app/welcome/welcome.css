@@ -1,0 +1,29 @@
+#mouse-circle {
+    position: absolute;
+    background-image: radial-gradient(
+            circle,
+            rgb(231, 76, 60) 0%,
+            rgba(35, 12, 19, 0.1) 70%,
+            rgba(12, 12, 12, 1) 90%
+    );
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    transition: transform 0.1s ease;
+    width: 20rem;
+    height: 20rem;
+    border-radius: 50%;
+}
+
+body:hover #mouse-circle {
+    animation: pulse 6s infinite;
+}
+
+@keyframes pulse {
+    0%,
+    100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+}
