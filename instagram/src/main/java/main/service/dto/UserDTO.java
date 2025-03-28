@@ -3,10 +3,12 @@ package main.service.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import main.entity.Post;
 import main.entity.User;
+import main.entity.UserType;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @Data
@@ -20,7 +22,9 @@ public class UserDTO {
 
   public UserDTO(User user, Boolean includeRelationships) {
     this.id = user.getId();
-    this.attributes = new UserAttributes(user.getUsername());
+    this.attributes =
+        new UserAttributes(
+            user.getUsername(), user.getEmail(), user.getRole(), user.getScore(), user.isBanned());
     this.relationships = includeRelationships ? new UserRelationships(user.getPosts()) : null;
     this.links = new UserLinks(this.id.toString());
   }
@@ -34,12 +38,14 @@ public class UserDTO {
   }
 
   @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
   public static class UserAttributes {
     private String username;
-
-    public UserAttributes(String username) {
-      this.username = username;
-    }
+    private String email;
+    private UserType role;
+    private Double score;
+    private Boolean isBanned;
   }
 
   @Data

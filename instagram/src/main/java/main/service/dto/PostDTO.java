@@ -32,8 +32,7 @@ public class PostDTO {
             post.getText(),
             new LocalImageProvider().getUrl(post.getImagePath()),
             post.getCreatedAt(),
-            post.getUpdatedAt()
-        );
+            post.getUpdatedAt());
     this.relationships =
         includeRelationships
             ? new PostRelationships(post.getAuthor(), post.getParent(), post.getComments())

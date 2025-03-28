@@ -35,6 +35,9 @@ public class Post {
   @Column(name = "updated_at", nullable = false)
   private LocalDateTime updatedAt;
 
+  @Column(name = "is_commentable")
+  private boolean is_commentable;
+
   @ManyToOne
   @JoinColumn(name = "user_id", nullable = false)
   private User author;
@@ -61,6 +64,7 @@ public class Post {
     this.createdAt = LocalDateTime.now();
     this.updatedAt = LocalDateTime.now();
     this.status = PostStatus.DRAFT;
+    this.is_commentable = true;
   }
 
   @PreUpdate
