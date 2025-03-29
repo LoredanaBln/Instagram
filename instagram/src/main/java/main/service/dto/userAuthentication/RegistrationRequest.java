@@ -1,4 +1,4 @@
-package main.service.dto.userRegistration;
+package main.service.dto.userAuthentication;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
