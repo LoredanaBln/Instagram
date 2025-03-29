@@ -9,7 +9,7 @@ interface PostIndexProps {
 
 export function PostIndex({ posts }: PostIndexProps) {
     return (
-        <div className="mt-4 max-w-xl mx-auto">
+        <div className="my-4 max-w-xl mx-auto">
             <PostForm />
 
             <div className="flex flex-col w-full gap-4 mt-4">

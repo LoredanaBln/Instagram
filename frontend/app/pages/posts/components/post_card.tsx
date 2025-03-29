@@ -25,7 +25,7 @@ export function PostCard({ post }: PostCardProps) {
             {post.attributes.imagePath && (
                 <div className="border border-gray-600 rounded-lg overflow-hidden mb-3">
                     <img
-                        src={`http://localhost:8080${post.attributes.imagePath}`}
+                        src={post.attributes.imagePath}
                         alt={post.attributes.title}
                         className="w-full h-auto"
                     />
