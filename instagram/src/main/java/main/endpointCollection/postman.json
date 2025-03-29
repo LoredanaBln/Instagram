@@ -1,144 +1,300 @@
 {
   "info": {
-    "name": "Instagram API - User Endpoints",
+    "name": "Instagram API - User & Post Endpoints",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
     {
-      "name": "Get All Users",
-      "request": {
-        "method": "GET",
-        "url": {
-          "raw": "http://localhost:8080/api/users",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "8080",
-          "path": ["api", "users"]
-        }
-      }
-    },
-    {
-      "name": "Create User (Register)",
-      "request": {
-        "method": "POST",
-        "url": {
-          "raw": "http://localhost:8080/api/users",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "8080",
-          "path": ["api", "users"]
-        },
-        "body": {
-          "mode": "formdata",
-          "formdata": [
-            {
-              "key": "username",
-              "value": "testuser",
-              "type": "text"
-            },
-            {
-              "key": "password",
-              "value": "password123",
-              "type": "text"
-            },
-            {
-              "key": "email",
-              "value": "test@example.com",
-              "type": "text"
-            },
-            {
-              "key": "image",
-              "type": "file",
-              "src": []
+      "name": "Users",
+      "item": [
+        {
+          "name": "Get All Users",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8080/api/users",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "users"]
             }
-          ]
-        }
-      }
-    },
-    {
-      "name": "Get User by ID",
-      "request": {
-        "method": "GET",
-        "url": {
-          "raw": "http://localhost:8080/api/users/1",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "8080",
-          "path": ["api", "users", "1"]
-        }
-      }
-    },
-    {
-      "name": "Update User",
-      "request": {
-        "method": "PUT",
-        "url": {
-          "raw": "http://localhost:8080/api/users/1",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "8080",
-          "path": ["api", "users", "1"]
-        },
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
           }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"type\": \"users\",\n  \"id\": 1,\n  \"attributes\": {\n    \"username\": \"updatedUsername\",\n    \"email\": \"updated@example.com\"\n  }\n}"
-        }
-      }
-    },
-    {
-      "name": "Delete User",
-      "request": {
-        "method": "DELETE",
-        "url": {
-          "raw": "http://localhost:8080/api/users/1",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "8080",
-          "path": ["api", "users", "1"]
-        }
-      }
-    },
-    {
-      "name": "Login",
-      "request": {
-        "method": "POST",
-        "url": {
-          "raw": "http://localhost:8080/api/users/login",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "8080",
-          "path": ["api", "users", "login"]
         },
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
+        {
+          "name": "Create User (Register)",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "http://localhost:8080/api/users",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "users"]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "username",
+                  "value": "testuser",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "password123",
+                  "type": "text"
+                },
+                {
+                  "key": "email",
+                  "value": "test@example.com",
+                  "type": "text"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            }
           }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"username\": \"testuser\",\n  \"password\": \"password123\"\n}"
+        },
+        {
+          "name": "Get User by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8080/api/users/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "users", "1"]
+            }
+          }
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "http://localhost:8080/api/users/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "users", "1"]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"users\",\n  \"id\": 1,\n  \"attributes\": {\n    \"username\": \"updatedUsername\",\n    \"email\": \"updated@example.com\"\n  }\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete User",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "http://localhost:8080/api/users/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "users", "1"]
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "http://localhost:8080/api/users/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "users", "login"]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"testuser\",\n  \"password\": \"password123\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "http://localhost:8080/api/users/logout",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "users", "logout"]
+            }
+          }
         }
-      }
+      ]
     },
     {
-      "name": "Logout",
-      "request": {
-        "method": "POST",
-        "url": {
-          "raw": "http://localhost:8080/api/users/logout",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "8080",
-          "path": ["api", "users", "logout"]
+      "name": "Posts",
+      "item": [
+        {
+          "name": "Get All Posts",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8080/api/posts",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "posts"]
+            },
+            "auth": {
+              "type": "cookie",
+              "cookie": [
+                {
+                  "key": "JSESSIONID",
+                  "value": "{{sessionId}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Post",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "http://localhost:8080/api/posts",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "posts"]
+            },
+            "auth": {
+              "type": "cookie",
+              "cookie": [
+                {
+                  "key": "JSESSIONID",
+                  "value": "{{sessionId}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "My First Post",
+                  "type": "text"
+                },
+                {
+                  "key": "text",
+                  "value": "This is the content of my post",
+                  "type": "text"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": []
+                },
+                {
+                  "key": "parentId",
+                  "value": "1",
+                  "type": "text",
+                  "description": "Optional - Parent post ID if this is a comment"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Post by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8080/api/posts/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "posts", "1"]
+            },
+            "auth": {
+              "type": "cookie",
+              "cookie": [
+                {
+                  "key": "JSESSIONID",
+                  "value": "{{sessionId}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Post",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "http://localhost:8080/api/posts/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "posts", "1"]
+            },
+            "auth": {
+              "type": "cookie",
+              "cookie": [
+                {
+                  "key": "JSESSIONID",
+                  "value": "{{sessionId}}"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"posts\",\n  \"id\": 1,\n  \"attributes\": {\n    \"title\": \"Updated Post Title\",\n    \"text\": \"Updated post content\"\n  }\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Post",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "http://localhost:8080/api/posts/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "posts", "1"]
+            },
+            "auth": {
+              "type": "cookie",
+              "cookie": [
+                {
+                  "key": "JSESSIONID",
+                  "value": "{{sessionId}}"
+                }
+              ]
+            }
+          }
         }
-      }
+      ]
     }
   ]
 }
