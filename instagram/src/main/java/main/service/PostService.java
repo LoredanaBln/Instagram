@@ -20,10 +20,10 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 public class PostService {
   private final IPostRepository postRepository;
-  private final IUserRepository userRepository;
+  private final AuthenticationService authenticationService;
 
   public List<PostDTO> getAll(HttpSession session) {
-    getAuthenticatedUser(session);
+    authenticationService.getAuthenticatedUser(session);
     
     return postRepository.findAll().stream()
         .map(PostDTO::withRelationships)
@@ -31,7 +31,7 @@ public class PostService {
   }
 
   public PostDTO create(PostCreateRequest request, MultipartFile image, HttpSession session) throws IOException {
-    User authenticatedUser = getAuthenticatedUser(session);
+    User authenticatedUser = authenticationService.getAuthenticatedUser(session);
 
     Post post = new Post();
     post.setTitle(request.getTitle());
@@ -55,7 +55,7 @@ public class PostService {
   }
 
   public PostDTO get(Long id, HttpSession session) {
-    getAuthenticatedUser(session);
+    authenticationService.getAuthenticatedUser(session);
     
     return postRepository
         .findById(id)
@@ -64,7 +64,7 @@ public class PostService {
   }
 
   public PostDTO update(Long id, PostDTO request, HttpSession session) {
-    User authenticatedUser = getAuthenticatedUser(session);
+    User authenticatedUser = authenticationService.getAuthenticatedUser(session);
     Post post = postRepository
         .findById(id)
         .orElseThrow(() -> new RuntimeException("Post not found with ID: " + id));
@@ -91,7 +91,7 @@ public class PostService {
   }
 
   public void delete(Long id, HttpSession session) {
-    User authenticatedUser = getAuthenticatedUser(session);
+    User authenticatedUser = authenticationService.getAuthenticatedUser(session);
     Post post = postRepository
         .findById(id)
         .orElseThrow(() -> new RuntimeException("Post not found with ID: " + id));
@@ -103,15 +103,5 @@ public class PostService {
     }
 
     postRepository.deleteById(id);
-  }
-
-  private User getAuthenticatedUser(HttpSession session) {
-    Long userId = (Long) session.getAttribute("userId");
-    if (userId == null) {
-      throw new RuntimeException("Not authenticated");
-    }
-    return userRepository
-            .findById(userId)
-            .orElseThrow(() -> new RuntimeException("User not found"));
   }
 }

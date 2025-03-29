@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class UserService {
   private final IUserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
+  private final AuthenticationService authenticationService;
 
   public List<UserDTO> getAll() {
     return userRepository.findAll().stream()
@@ -56,7 +57,7 @@ public class UserService {
   }
 
   public UserDTO update(Long id, UserDTO request, HttpSession session) {
-    User authenticatedUser = getAuthenticatedUser(session);
+    User authenticatedUser = authenticationService.getAuthenticatedUser(session);
     User user =
         userRepository
             .findById(id)
@@ -75,7 +76,7 @@ public class UserService {
   }
 
   public void delete(Long id, HttpSession session) {
-    User authenticatedUser = getAuthenticatedUser(session);
+    User authenticatedUser = authenticationService.getAuthenticatedUser(session);
 
     if (!authenticatedUser.getId().equals(id)
         && !authenticatedUser.getRole().equals(UserType.MODERATOR)) {
@@ -106,15 +107,5 @@ public class UserService {
     session.setAttribute("userId", user.getId());
 
     return new AuthenticationResponse(user.getUsername(), user.getRole(), true);
-  }
-
-  private User getAuthenticatedUser(HttpSession session) {
-    Long userId = (Long) session.getAttribute("userId");
-    if (userId == null) {
-      throw new RuntimeException("Not authenticated");
-    }
-    return userRepository
-            .findById(userId)
-            .orElseThrow(() -> new RuntimeException("User not found"));
   }
 }
