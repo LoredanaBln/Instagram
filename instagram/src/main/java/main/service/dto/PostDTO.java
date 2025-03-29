@@ -30,7 +30,7 @@ public class PostDTO {
         new PostAttributes(
             post.getTitle(),
             post.getText(),
-            new LocalImageProvider().getUrl(post.getImagePath()),
+            post.getImagePath() == null ? null : new LocalImageProvider().getUrl(post.getImagePath()),
             post.getCreatedAt(),
             post.getUpdatedAt());
     this.relationships =
