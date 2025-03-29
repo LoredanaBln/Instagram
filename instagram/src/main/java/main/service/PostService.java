@@ -45,7 +45,9 @@ public class PostService {
     Post post = new Post();
     post.setTitle(request.getAttributes().getTitle());
     post.setText(request.getAttributes().getText());
-    post.setImagePath(new LocalImageProvider().saveImage(image));
+    if (image != null) {
+      post.setImagePath(new LocalImageProvider().saveImage(image));
+    }
     post.setAuthor(author);
     post.setParent(parent);
 
