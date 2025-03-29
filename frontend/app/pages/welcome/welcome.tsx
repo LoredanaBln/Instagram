@@ -28,8 +28,8 @@ export function Welcome() {
           <button className="cursor-pointer relative uppercase group border-2 border-[#e74c3c] bg-[#140c13] rounded-full px-8 py-2 shadow-[0_0_60px_#e74c3c] overflow-hidden mt-12">
             {/* Button text (kept above the overlay) */}
             <span className="relative z-10 flex items-center">
-            Join now <FontAwesomeIcon icon={faArrowRight} className="ml-2" />
-        </span>
+              Join now <FontAwesomeIcon icon={faArrowRight} className="ml-2" />
+            </span>
 
             {/* Overlay that slides in on hover */}
             <span className="absolute top-0 bottom-0 left-[-10%] w-[200%] bg-[#e74c3c] transform -translate-x-full skew-x-[-20deg] transition-transform duration-300 ease-in-out group-hover:translate-x-0"></span>
