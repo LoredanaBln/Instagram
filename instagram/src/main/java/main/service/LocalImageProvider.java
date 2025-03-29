@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class LocalImageProvider implements IImageProvider {
-  private static final String UPLOAD_DIR = "uploads/";
+  private static final String UPLOAD_DIR = "uploads//";
 
   @Override
   public String saveImage(MultipartFile image) throws IOException {
@@ -29,7 +29,7 @@ public class LocalImageProvider implements IImageProvider {
 
   @Override
   public String getUrl(String filename) {
-    return "/api/uploads/" + filename;
+    return "http://localhost:8080/api/" + filename.replace("\\", "/");
   }
 
   @Override
