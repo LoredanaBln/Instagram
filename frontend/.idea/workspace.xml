@@ -5,17 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="86d83702-e87a-4c3e-a9ee-36c699a0af36" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/components/alert_destructive.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/services/dtos/post_dto.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/services/dtos/relationship_dto.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/config/endpoint.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/config/object_flattner.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/pages/posts/components/post_form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/posts/components/post_form.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/pages/posts/post_index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/posts/post_index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/repositories/post_repository.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/repositories/post_repository.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/services/post_service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/post_service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../instagram/src/main/java/main/service/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../instagram/src/main/java/main/service/PostService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../instagram/src/main/java/main/service/dto/PostDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../instagram/src/main/java/main/service/dto/PostDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../instagram/src/main/resources/application.properties.template" beforeDir="false" afterPath="$PROJECT_DIR$/../instagram/src/main/resources/application.properties.template" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +29,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -102,7 +96,7 @@
       <updated>1743184394719</updated>
       <workItem from="1743184396459" duration="4316000" />
       <workItem from="1743191616502" duration="5859000" />
-      <workItem from="1743243546586" duration="15018000" />
+      <workItem from="1743243546586" duration="16776000" />
     </task>
     <servers />
   </component>
