@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="86d83702-e87a-4c3e-a9ee-36c699a0af36" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/config/endpoint.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/config/object_flattner.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/repositories/post_repository.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/repositories/post_repository.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +92,8 @@
       <updated>1743184394719</updated>
       <workItem from="1743184396459" duration="4316000" />
       <workItem from="1743191616502" duration="5859000" />
-      <workItem from="1743243546586" duration="16776000" />
+      <workItem from="1743243546586" duration="17488000" />
+      <workItem from="1743417499090" duration="230000" />
     </task>
     <servers />
   </component>
