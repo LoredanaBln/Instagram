@@ -8,7 +8,7 @@ import java.io.IOException;
 import main.entity.User;
 import main.repository.IUserRepository;
 import main.service.dto.UserDTO;
-import main.service.dto.userRegistration.RegistrationRequest;
+import main.service.dto.userAuthentication.RegistrationRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
