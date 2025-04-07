@@ -5,6 +5,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
+
+import main.config.Constants;
 import main.interfaces.IImageProvider;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -13,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class LocalImageProvider implements IImageProvider {
-  private static final String UPLOAD_DIR = "uploads/";
+  private static final String UPLOAD_DIR = "uploads//";
 
   @Override
   public String saveImage(MultipartFile image) throws IOException {
@@ -29,7 +31,7 @@ public class LocalImageProvider implements IImageProvider {
 
   @Override
   public String getUrl(String filename) {
-    return "/api/uploads/" + filename;
+    return Constants.LOCAL_BASE_URL + filename.replace("\\", "/");
   }
 
   @Override

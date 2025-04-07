@@ -34,6 +34,7 @@ public class PostService {
     User authenticatedUser = authenticationService.getAuthenticatedUser(session);
 
     Post post = new Post();
+
     post.setTitle(request.getTitle());
     post.setText(request.getText());
     post.setImagePath(new LocalImageProvider().saveImage(image));
