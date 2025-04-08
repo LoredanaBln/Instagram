@@ -17,7 +17,7 @@ export function PostIndex({ posts }: PostIndexProps) {
             <PostForm setMessage={setMessage} setType={setAlertType} />
 
             <div className="flex flex-col w-full gap-4 mt-4">
-                {posts.map((post) => <PostCard post={post} />)}
+                {posts.map((post) => <PostCard post={post} key={post.id} />)}
             </div>
 
             <AlertDestructive className="fixed bottom-4 right-0 w-[95%] mr-[2.5%] md:w-80 md:mr-0 md:right-4" message={message} type={alertType}/>

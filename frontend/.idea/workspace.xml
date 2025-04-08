@@ -5,7 +5,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="86d83702-e87a-4c3e-a9ee-36c699a0af36" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/app/components/future_loader.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/config/api.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/pages/auth/login.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/pages/auth/register.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/repositories/user_repository.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/routes/login.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/routes/register.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/services/dtos/requests/login_dto.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/services/dtos/requests/post_create_request_dto.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/services/dtos/requests/register_dto.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/services/dtos/responses/authenticate_response.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/config/endpoint.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/config/endpoint.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/pages/posts/post_index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/posts/post_index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/pages/welcome/welcome.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/welcome/welcome.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/pages/welcome/welcome.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/welcome/welcome.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/repositories/post_repository.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/repositories/post_repository.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/root.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/root.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes/posts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/posts.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/dtos/post_dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/dtos/responses/post_dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/post_service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/post_service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vite.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/vite.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../instagram/src/main/java/main/configuration/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../instagram/src/main/java/main/configuration/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../instagram/src/main/java/main/controller/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../instagram/src/main/java/main/controller/PostController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../instagram/src/main/java/main/service/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../instagram/src/main/java/main/service/PostService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,25 +62,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;post__creation__form&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;npm.dev.executor&quot;: &quot;Run&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;D:\\2. Area\\facultate\\Instagram-SD\\frontend\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "post__creation__form",
+    "last_opened_file_path": "D:/2. Area/facultate/Instagram-SD/frontend/app/services/dtos/requests",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "npm.dev.executor": "Run",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "ts.external.directory.path": "D:\\2. Area\\facultate\\Instagram-SD\\frontend\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\2. Area\facultate\Instagram-SD\frontend\app\services\dtos\requests" />
+      <recent name="D:\2. Area\facultate\Instagram-SD\frontend\app\routes" />
+      <recent name="D:\2. Area\facultate\Instagram-SD\frontend\app\services\dtos" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\2. Area\facultate\Instagram-SD\frontend\app\services\dtos\responses" />
+      <recent name="D:\2. Area\facultate\Instagram-SD\frontend\app\services\dtos\requests" />
+      <recent name="D:\2. Area\facultate\Instagram-SD\frontend\app\pages\auth" />
       <recent name="D:\2. Area\facultate\Instagram-SD\frontend\app\pages" />
     </key>
   </component>
@@ -94,6 +129,7 @@
       <workItem from="1743191616502" duration="5859000" />
       <workItem from="1743243546586" duration="17488000" />
       <workItem from="1743417499090" duration="230000" />
+      <workItem from="1744116306520" duration="9378000" />
     </task>
     <servers />
   </component>

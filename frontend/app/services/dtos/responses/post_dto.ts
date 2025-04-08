@@ -12,6 +12,5 @@ export interface PostDTO {
             id: string,
         }
     },
-    image: Blob | null// null or a Blob if provided
-};
+}
 
