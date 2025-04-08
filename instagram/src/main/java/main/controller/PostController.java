@@ -36,9 +36,10 @@ public class PostController {
   @PostMapping
   @RequireAuthentication
   public ResponseEntity<PostDTO> create(
-          @ModelAttribute PostCreateRequest request,
-          @RequestParam(value = "image", required = false) MultipartFile image,
-          HttpSession session) {
+    @ModelAttribute PostCreateRequest request,
+    @RequestParam(value = "image", required = false) MultipartFile image,
+    HttpSession session
+  ) {
     try {
       PostDTO createdComment = postService.create(request, image, session);
 

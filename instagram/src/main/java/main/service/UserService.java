@@ -30,7 +30,7 @@ public class UserService {
         .collect(Collectors.toList());
   }
 
-  public UserDTO create(RegistrationRequest request, MultipartFile image) throws IOException {
+  public UserDTO create(RegistrationRequest request, HttpSession session) throws IOException {
     if (request.getUsername() == null) {
       throw new RuntimeException("Username is required");
     }
@@ -43,9 +43,10 @@ public class UserService {
     user.setUsername(request.getUsername());
     user.setPassword(passwordEncoder.encode(request.getPassword()));
     user.setEmail(request.getEmail());
-    user.setImagePath(new LocalImageProvider().saveImage(image));
 
     User savedUser = userRepository.save(user);
+
+    session.setAttribute("userId", user.getId());
     return UserDTO.withRelationships(savedUser);
   }
 

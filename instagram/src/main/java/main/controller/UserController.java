@@ -30,12 +30,8 @@ public class UserController {
   }
 
   @PostMapping
-  public ResponseEntity<UserDTO> create(
-      @ModelAttribute RegistrationRequest request,
-      @RequestParam(value = "image", required = false) MultipartFile image)
-      throws IOException {
-
-    UserDTO createdUser = userService.create(request, image);
+  public ResponseEntity<UserDTO> create(@RequestBody  RegistrationRequest request, HttpSession session) throws IOException {
+    UserDTO createdUser = userService.create(request, session);
 
     return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
   }

@@ -24,7 +24,9 @@ public class PostService {
 
   public List<PostDTO> getAll(HttpSession session) {
     authenticationService.getAuthenticatedUser(session);
-    
+    System.out.println("authenticationService.getAuthenticatedUser(session).getUsername()");
+    System.out.println(authenticationService.getAuthenticatedUser(session).getUsername());
+
     return postRepository.findAll().stream()
         .map(PostDTO::withRelationships)
         .collect(Collectors.toList());
@@ -37,12 +39,11 @@ public class PostService {
 
     post.setTitle(request.getTitle());
     post.setText(request.getText());
-    post.setImagePath(new LocalImageProvider().saveImage(image));
     post.setAuthor(authenticatedUser);
+
     if (image != null && !image.isEmpty()) {
       post.setImagePath(new LocalImageProvider().saveImage(image));
     }
-    post.setAuthor(authenticatedUser);
 
     // Set parent post if this is a comment
     if (request.getParentId() != null) {
