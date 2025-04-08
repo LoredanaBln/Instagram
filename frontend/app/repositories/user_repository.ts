@@ -40,5 +40,20 @@ export class UsersRepository {
             throw new Error('Failed to register the user');
         }
     }
+    async logout() {
+        try {
+            const response = await api.post<AuthenticateResponse>('/api/users/logout', null, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                withCredentials: true,
+            });
+
+        } catch (error) {
+            console.error(error);
+            throw new Error('Failed to register the user');
+        }
+    }
 
 }

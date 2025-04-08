@@ -3,6 +3,7 @@ import {PostForm} from "~/pages/posts/components/post_form";
 import type {Post} from "~/entities/post";
 import {PostCard} from "~/pages/posts/components/post_card";
 import {AlertDestructive, AlertDestructiveEnum} from "~/components/alert_destructive";
+import MainLayout from "~/pages/layouts/main_layouts";
 
 interface PostIndexProps {
     posts: Post[];
@@ -13,14 +14,16 @@ export function PostIndex({ posts }: PostIndexProps) {
     const [alertType, setAlertType] = React.useState(AlertDestructiveEnum.error);
 
     return (
-        <div className="my-4 max-w-xl mx-auto px-4">
-            <PostForm setMessage={setMessage} setType={setAlertType} />
+        <MainLayout>
+            <div className="my-4 max-w-xl mx-auto px-4">
+                <PostForm setMessage={setMessage} setType={setAlertType} />
 
-            <div className="flex flex-col w-full gap-4 mt-4">
-                {posts.map((post) => <PostCard post={post} key={post.id} />)}
+                <div className="flex flex-col w-full gap-4 mt-4">
+                    {posts.map((post) => <PostCard post={post} key={post.id} />)}
+                </div>
+
+                <AlertDestructive className="fixed bottom-4 right-0 w-[95%] mr-[2.5%] md:w-80 md:mr-0 md:right-4" message={message} type={alertType}/>
             </div>
-
-            <AlertDestructive className="fixed bottom-4 right-0 w-[95%] mr-[2.5%] md:w-80 md:mr-0 md:right-4" message={message} type={alertType}/>
-        </div>
+        </MainLayout>
     );
 }
