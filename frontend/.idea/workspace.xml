@@ -5,12 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="86d83702-e87a-4c3e-a9ee-36c699a0af36" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/services/user_service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/pages/auth/login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/auth/login.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/pages/auth/register.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/auth/register.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/pages/layouts/main_layouts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/layouts/main_layouts.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/repositories/post_repository.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/repositories/post_repository.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/services/post_service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/post_service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/tests/posts_service.test.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vitest.config.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vitest.setup.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +45,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "Vitest.PostsService.executor": "Run",
     "git-widget-placeholder": "auth__form",
     "last_opened_file_path": "D:/2. Area/facultate/Instagram-SD/frontend/app/routes",
     "list.type.of.created.stylesheet": "CSS",
@@ -73,7 +74,20 @@
       <recent name="D:\2. Area\facultate\Instagram-SD\frontend\app\pages" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Vitest.PostsService">
+    <configuration name="PostsService" type="JavaScriptTestRunnerVitest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <vitest-package value="$PROJECT_DIR$/node_modules/vitest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <vitest-options value="--run" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/app/tests/posts_service.test.ts" />
+      <test-names>
+        <test-name value="PostsService" />
+      </test-names>
+      <method v="2" />
+    </configuration>
     <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -86,6 +100,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Vitest.PostsService" />
         <item itemvalue="npm.dev" />
       </list>
     </recent_temporary>
@@ -112,7 +127,7 @@
       <workItem from="1744116306520" duration="9664000" />
       <workItem from="1744148066547" duration="2134000" />
       <workItem from="1744183000500" duration="636000" />
-      <workItem from="1744207371704" duration="3534000" />
+      <workItem from="1744207371704" duration="4192000" />
     </task>
     <servers />
   </component>
