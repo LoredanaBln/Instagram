@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="86d83702-e87a-4c3e-a9ee-36c699a0af36" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/pages/layouts/main_layouts.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/pages/posts/post_index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/posts/post_index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/repositories/user_repository.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/repositories/user_repository.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/routes/posts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/posts.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/entities/post.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/entities/post.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/pages/posts/components/post_card.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/posts/components/post_card.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +106,9 @@
       <workItem from="1743243546586" duration="17488000" />
       <workItem from="1743417499090" duration="230000" />
       <workItem from="1744116306520" duration="9664000" />
-      <workItem from="1744148066547" duration="1360000" />
+      <workItem from="1744148066547" duration="2134000" />
+      <workItem from="1744183000500" duration="636000" />
+      <workItem from="1744207371704" duration="1700000" />
     </task>
     <servers />
   </component>

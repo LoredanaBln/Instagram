@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import main.entity.Post;
+import main.entity.PostStatus;
 import main.entity.User;
 import main.service.LocalImageProvider;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -30,6 +31,7 @@ public class PostDTO {
         new PostAttributes(
             post.getTitle(),
             post.getText(),
+            post.getStatus(),
             post.getImagePath() == null ? null : new LocalImageProvider().getUrl(post.getImagePath()),
             post.getCreatedAt(),
             post.getUpdatedAt());
@@ -54,6 +56,7 @@ public class PostDTO {
   public static class PostAttributes {
     private String title;
     private String text;
+    private PostStatus status;
     private String imagePath;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

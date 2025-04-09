@@ -11,6 +11,7 @@ export interface Post {
 export interface PostAttributes {
     title: string;
     text: string;
+    status: string;
     imagePath: string;
     createdAt: string;
     updatedAt: string;
