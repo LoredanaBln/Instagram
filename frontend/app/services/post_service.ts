@@ -1,13 +1,13 @@
-import {PostsRepository} from "~/repositories/post_repository";
+import {PostRepository} from "~/repositories/post_repository";
 import type {Post} from "~/entities/post";
 import type {PostDTO} from "~/services/dtos/responses/post_dto";
 import type {PostCreateRequestDTO} from "~/services/dtos/requests/post_create_request_dto";
 
 export class PostsService {
-    private postsRepository: PostsRepository;
+    private postsRepository: PostRepository;
 
     constructor() {
-        this.postsRepository = new PostsRepository();
+        this.postsRepository = new PostRepository();
     }
 
     async get() : Promise<Post[]> {

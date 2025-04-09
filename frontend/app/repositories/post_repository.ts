@@ -5,7 +5,7 @@ import {ENDPOINTS} from "~/config/endpoint";
 import {api} from "~/config/api";
 import type {PostCreateRequestDTO} from "~/services/dtos/requests/post_create_request_dto";
 
-export class PostsRepository {
+export class PostRepository {
     async get(): Promise<Post[]> {
         try {
             const response = await api.get<Post[]>(ENDPOINTS.POSTS);
@@ -16,7 +16,7 @@ export class PostsRepository {
         }
     }
 
-async create(data: PostCreateRequestDTO) {
+    async create(data: PostCreateRequestDTO) {
         const formData = new FormData();
         Object.entries(ObjectFlattener.handle(data)).forEach(([key, value]) => {
             if (value !== null && value !== undefined) {

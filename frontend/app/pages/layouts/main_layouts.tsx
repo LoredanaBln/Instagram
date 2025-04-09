@@ -1,13 +1,13 @@
 // components/Layout.jsx
 import React from "react";
 import {useNavigate} from "react-router";
-import {UsersRepository} from "~/repositories/user_repository";
+import {UserService} from "~/services/user_service";
 
 const Layout = ({ children }: {children: React.ReactNode}) => {
     const navigation = useNavigate();
 
     const logout = () => {
-        new UsersRepository().logout().then(_ => navigation("/login"));
+        new UserService().logout().then(_ => navigation("/login"));
 
     }
 

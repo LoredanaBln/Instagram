@@ -1,6 +1,6 @@
 import React, {useState} from "react";
-import {UsersRepository} from "~/repositories/user_repository";
 import {useNavigate} from "react-router";
+import {UserService} from "~/services/user_service";
 
 export function Login() {
     const [username, setUsername] = useState('');
@@ -28,7 +28,7 @@ export function Login() {
 
         try {
             validateData();
-            new UsersRepository().login({username, password}).then(() => {
+            new UserService().login({username, password}).then(() => {
                 clearInputs();
                 navigator("/posts");
             }).catch((err) => setError(err));
