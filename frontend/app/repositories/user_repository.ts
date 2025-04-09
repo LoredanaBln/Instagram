@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, {AxiosError} from "axios";
 import {ENDPOINTS} from "~/config/endpoint";
 import type {AuthenticateResponse} from "~/services/dtos/responses/authenticate_response";
 import type {LoginDTO} from "~/services/dtos/requests/login_dto";
@@ -14,11 +14,16 @@ export class UsersRepository {
                     "Accept": "application/json",
                 },
                 withCredentials: true,
-            });
+            })
+
 
             return response.data;
         } catch (error) {
-            console.error(error);
+            // @ts-ignore
+            if ((error as AxiosError).response.status === 403) {
+                localStorage.setItem("isBanned", "1");
+                window.location.reload();
+            }
             throw new Error('Failed to login the user');
         }
     }

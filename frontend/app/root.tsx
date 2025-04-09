@@ -9,6 +9,7 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import MiddlewareWrapper from "~/routes/middlewares/MiddlewareWrapper";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -29,7 +30,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+      <MiddlewareWrapper>
+        <Outlet />
+      </MiddlewareWrapper>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {

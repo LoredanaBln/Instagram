@@ -5,9 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="86d83702-e87a-4c3e-a9ee-36c699a0af36" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/app/pages/banned/banned.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/pages/banned/banned.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/routes/ban.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/routes/middlewares/MiddlewareWrapper.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/entities/post.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/entities/post.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/pages/posts/components/post_card.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/posts/components/post_card.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/pages/welcome/welcome.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/welcome/welcome.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/repositories/user_repository.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/repositories/user_repository.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/root.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/root.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes/home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/home.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,28 +46,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;auth__form&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/2. Area/facultate/Instagram-SD/frontend/app/services/dtos/requests&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;npm.dev.executor&quot;: &quot;Run&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;D:\\2. Area\\facultate\\Instagram-SD\\frontend\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "auth__form",
+    "last_opened_file_path": "D:/2. Area/facultate/Instagram-SD/frontend/app/routes",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "npm.dev.executor": "Run",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "ts.external.directory.path": "D:\\2. Area\\facultate\\Instagram-SD\\frontend\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\2. Area\facultate\Instagram-SD\frontend\app\services\dtos\requests" />
       <recent name="D:\2. Area\facultate\Instagram-SD\frontend\app\routes" />
+      <recent name="D:\2. Area\facultate\Instagram-SD\frontend\app\pages" />
+      <recent name="D:\2. Area\facultate\Instagram-SD\frontend\app\services\dtos\requests" />
       <recent name="D:\2. Area\facultate\Instagram-SD\frontend\app\services\dtos" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -108,7 +117,7 @@
       <workItem from="1744116306520" duration="9664000" />
       <workItem from="1744148066547" duration="2134000" />
       <workItem from="1744183000500" duration="636000" />
-      <workItem from="1744207371704" duration="1700000" />
+      <workItem from="1744207371704" duration="2992000" />
     </task>
     <servers />
   </component>
