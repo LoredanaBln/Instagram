@@ -19,6 +19,8 @@ export interface PostAttributes {
 
 export interface PostRelationships {
     author: User|null;
+    comments: Post[];
+    post: Post;
 }
 
 export interface PostLinks {

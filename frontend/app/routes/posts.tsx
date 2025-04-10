@@ -7,7 +7,7 @@ import {useNavigate} from "react-router";
 const loadPosts = async (navigate: (path: string) => void) => {
     try {
         const posts = await new PostsService().get();
-        return posts.sort((a, b) => {
+        return posts.filter((post: Post) => post.relationships?.post === undefined).sort((a, b) => {
             const dateA = new Date(a.attributes.createdAt).getTime();
             const dateB = new Date(b.attributes.createdAt).getTime();
             return dateB - dateA;

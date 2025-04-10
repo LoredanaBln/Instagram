@@ -1,5 +1,6 @@
 package main.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import jakarta.servlet.http.HttpSession;
@@ -8,6 +9,7 @@ import main.security.RequireAuthentication;
 import main.service.PostService;
 import main.service.dto.PostCreateRequest;
 import main.service.dto.PostDTO;
+import main.service.dto.PostUpdateRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -66,11 +68,11 @@ public class PostController {
   @RequireAuthentication
   public ResponseEntity<PostDTO> updatePostById(
           @PathVariable Long id,
-          @RequestBody PostDTO postDTO,
+          @ModelAttribute PostUpdateRequest postDTO,
           HttpSession session) {
     try {
       return ResponseEntity.ok(postService.update(id, postDTO, session));
-    } catch (RuntimeException e) {
+    } catch (RuntimeException | IOException e) {
       if (e.getMessage().contains("Not authenticated")) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
       }

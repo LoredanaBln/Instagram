@@ -8,6 +8,12 @@ const Layout = ({ children }: {children: React.ReactNode}) => {
 
     const logout = () => {
         new UserService().logout().then(_ => navigation("/login"));
+    }
+
+    function canAccessAdminPortal() {
+        const role = sessionStorage.getItem("role");
+
+        return role == "MODERATOR";
 
     }
 
@@ -23,6 +29,9 @@ const Layout = ({ children }: {children: React.ReactNode}) => {
                         <a href="#" className="block font-medium hover:text-[#e74c3c]">Notifications</a>
                         <a href="#" className="block font-medium hover:text-[#e74c3c]">Messages</a>
                         <a href="#" className="block font-medium hover:text-[#e74c3c]">Profile</a>
+                        {canAccessAdminPortal() && (
+                            <a href="/users" className="block font-medium hover:text-[#e74c3c]">Admin Portal</a>
+                        )}
                     </nav>
                 </div>
                 <button className="bg-[#e74c3c] cursor-pointer text-white py-2 px-4 rounded-full font-semibold hover:bg-[#cf3e30] transition-colors" onClick={logout}>
