@@ -1,36 +1,27 @@
 import React from 'react';
-import {PostForm} from "~/pages/posts/components/post_form";
 import type {Post} from "~/entities/post";
-import {PostCard} from "~/pages/posts/components/post_card";
 import {AlertDestructive, AlertDestructiveEnum} from "~/components/alert_destructive";
 import MainLayout from "~/pages/layouts/main_layouts";
-import {PostsService} from "~/services/post_service";
+import {UpdatePostForm} from "~/pages/posts/components/update_post_form";
 
-interface PostIndexProps {
-    posts: Post[];
+interface PostUpdateProps {
+    post: Post;
 }
 
-export function PostIndex({ posts }: PostIndexProps) {
+export function PostUpdate({ post }: PostUpdateProps) {
     const [message, setMessage] = React.useState("");
     const [alertType, setAlertType] = React.useState(AlertDestructiveEnum.error);
 
     return (
         <MainLayout>
             <div className="my-4 max-w-xl mx-auto px-4">
-                <PostForm
+                <UpdatePostForm
+                    post={post}
                     setMessage={setMessage}
                     setType={setAlertType}
                     submitButtonText="Post"
                     textareaSize={3}
-                    titlePlaceholder="What's happening?"
-                    postParentId={null}
                 />
-
-                <div className="flex flex-col w-full gap-4 mt-4">
-                    {posts.map((post) => <a href={"/posts/" + post.id} key={post.id}>
-                        <PostCard post={post} setMessage={setMessage} setType={setAlertType}/>
-                    </a>)}
-                </div>
 
                 <AlertDestructive className="fixed bottom-4 right-0 w-[95%] mr-[2.5%] md:w-80 md:mr-0 md:right-4" message={message} type={alertType}/>
             </div>

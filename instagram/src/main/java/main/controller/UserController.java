@@ -6,6 +6,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import main.service.UserService;
 import main.service.dto.UserDTO;
+import main.service.dto.UserUpdateRequest;
 import main.service.dto.userAuthentication.AuthenticationResponse;
 import main.service.dto.userAuthentication.LoginRequest;
 import main.service.dto.userAuthentication.RegistrationRequest;
@@ -30,12 +31,8 @@ public class UserController {
   }
 
   @PostMapping
-  public ResponseEntity<UserDTO> create(
-      @ModelAttribute RegistrationRequest request,
-      @RequestParam(value = "image", required = false) MultipartFile image)
-      throws IOException {
-
-    UserDTO createdUser = userService.create(request, image);
+  public ResponseEntity<UserDTO> create(@RequestBody  RegistrationRequest request, HttpSession session) throws IOException {
+    UserDTO createdUser = userService.create(request, session);
 
     return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
   }
@@ -52,7 +49,7 @@ public class UserController {
   @PutMapping("/{id}")
   @RequireAuthentication
   public ResponseEntity<UserDTO> update(
-      @PathVariable Long id, @RequestBody UserDTO userDTO, HttpSession session) {
+          @PathVariable Long id, @RequestBody UserUpdateRequest userDTO, HttpSession session) {
     try {
       return ResponseEntity.ok(userService.update(id, userDTO, session));
     } catch (RuntimeException e) {

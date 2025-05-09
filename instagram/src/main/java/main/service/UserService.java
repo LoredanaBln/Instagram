@@ -9,6 +9,7 @@ import main.entity.User;
 import main.entity.UserType;
 import main.repository.IUserRepository;
 import main.service.dto.UserDTO;
+import main.service.dto.UserUpdateRequest;
 import main.service.dto.userAuthentication.AuthenticationResponse;
 import main.service.dto.userAuthentication.LoginRequest;
 import main.service.dto.userAuthentication.RegistrationRequest;
@@ -30,7 +31,7 @@ public class UserService {
         .collect(Collectors.toList());
   }
 
-  public UserDTO create(RegistrationRequest request, MultipartFile image) throws IOException {
+  public UserDTO create(RegistrationRequest request, HttpSession session) throws IOException {
     if (request.getUsername() == null) {
       throw new RuntimeException("Username is required");
     }
@@ -43,9 +44,10 @@ public class UserService {
     user.setUsername(request.getUsername());
     user.setPassword(passwordEncoder.encode(request.getPassword()));
     user.setEmail(request.getEmail());
-    user.setImagePath(new LocalImageProvider().saveImage(image));
 
     User savedUser = userRepository.save(user);
+
+    session.setAttribute("userId", user.getId());
     return UserDTO.withRelationships(savedUser);
   }
 
@@ -56,21 +58,20 @@ public class UserService {
         .orElseThrow(() -> new RuntimeException("User not found with ID: " + id));
   }
 
-  public UserDTO update(Long id, UserDTO request, HttpSession session) {
+  public UserDTO update(Long id, UserUpdateRequest request, HttpSession session) {
     User authenticatedUser = authenticationService.getAuthenticatedUser(session);
     User user =
         userRepository
             .findById(id)
-            .orElseThrow(() -> new RuntimeException("User not found with ID: " + request.getId()));
+            .orElseThrow(() -> new RuntimeException("User not found with ID: " + id));
 
-    if (!authenticatedUser.getId().equals(user.getId())
-        && !authenticatedUser.getRole().equals(UserType.MODERATOR)) {
+    if (!authenticatedUser.getRole().equals(UserType.MODERATOR)) {
       throw new RuntimeException("Not authorized to update this user");
     }
 
-    if (request.getAttributes().getUsername() != null) {
-      user.setUsername(request.getAttributes().getUsername());
-    }
+    System.out.println(request.isBanned());
+
+    user.setBanned(request.isBanned());
 
     return UserDTO.withRelationships(userRepository.save(user));
   }

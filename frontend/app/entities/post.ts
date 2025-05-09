@@ -11,6 +11,7 @@ export interface Post {
 export interface PostAttributes {
     title: string;
     text: string;
+    status: string;
     imagePath: string;
     createdAt: string;
     updatedAt: string;
@@ -18,6 +19,8 @@ export interface PostAttributes {
 
 export interface PostRelationships {
     author: User|null;
+    comments: Post[];
+    post: Post;
 }
 
 export interface PostLinks {

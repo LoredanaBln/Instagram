@@ -1,9 +1,9 @@
 import React from 'react';
-import {faArrowRight} from "@fortawesome/free-solid-svg-icons";
+import {faFaceSadTear} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import './welcome.css';
+import './banned.css';
 
-export function Welcome() {
+export function Banned() {
   React.useEffect(() => {
     const handleMouseMove = (event :MouseEvent) => {
       const circle = document.getElementById('mouse-circle') as HTMLDivElement;
@@ -24,11 +24,11 @@ export function Welcome() {
         <div className="text-center z-10 cursor-default">
           <p className="text-[#e74c3c] uppercase text-sm font-bold -mb-2">Coming soon</p>
           <h1 className="text-7xl font-extrabold bg-gradient-to-r from-[#e74c3c] from-35% to-white bg-clip-text text-transparent pb-5">Lategram</h1>
-          <h2 className="text-xl font-light text-white mb-8">Let your memories speak for themselves. But not about the jews or gypsies.</h2>
+          <h2 className="text-xl font-light text-white mb-8">You were banned! Please refer to our guidelines and never do it again.</h2>
           <button className="cursor-pointer relative uppercase group border-2 border-[#e74c3c] bg-[#140c13] rounded-full px-8 py-2 shadow-[0_0_60px_#e74c3c] overflow-hidden mt-12">
             {/* Button text (kept above the overlay) */}
-            <a className="relative z-10 flex items-center" href="/login">
-              Join now <FontAwesomeIcon icon={faArrowRight} className="ml-2" />
+            <a className="relative z-10 flex items-center">
+              I am sorry <FontAwesomeIcon icon={faFaceSadTear} className="ml-2" />
             </a>
 
             {/* Overlay that slides in on hover */}

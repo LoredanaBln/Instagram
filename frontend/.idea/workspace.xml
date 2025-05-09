@@ -5,7 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="86d83702-e87a-4c3e-a9ee-36c699a0af36" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/app/pages/posts/components/update_post_form.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/pages/posts/post_show.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/pages/posts/post_update.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/pages/users/user_management_page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/routes/post_show.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/routes/post_update.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/routes/users.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/services/dtos/requests/post_update_request_dto.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../instagram/src/main/java/main/service/dto/PostUpdateRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../instagram/src/main/java/main/service/dto/UserUpdateRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/config/endpoint.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/config/endpoint.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/entities/post.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/entities/post.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/pages/layouts/main_layouts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/layouts/main_layouts.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/pages/posts/components/post_card.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/posts/components/post_card.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/pages/posts/components/post_form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/posts/components/post_form.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/pages/posts/post_index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/posts/post_index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/repositories/post_repository.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/repositories/post_repository.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/repositories/user_repository.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/repositories/user_repository.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes/posts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/posts.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/dtos/requests/post_create_request_dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/dtos/requests/post_create_request_dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/post_service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/post_service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/user_service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/user_service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../instagram/src/main/java/main/configuration/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../instagram/src/main/java/main/configuration/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../instagram/src/main/java/main/controller/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../instagram/src/main/java/main/controller/PostController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../instagram/src/main/java/main/service/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../instagram/src/main/java/main/service/PostService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../instagram/src/main/java/main/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../instagram/src/main/java/main/service/UserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,8 +43,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="CSS File" />
-        <option value="TypeScript JSX File" />
         <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
       </list>
     </option>
   </component>
@@ -40,7 +67,9 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;post__creation__form&quot;,
+    &quot;Vitest.PostsService.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;auth__form&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/2. Area/facultate/Instagram-SD/frontend/app/routes&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -54,11 +83,34 @@
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\2. Area\facultate\Instagram-SD\frontend\app\routes" />
+      <recent name="D:\2. Area\facultate\Instagram-SD\frontend\app\services\dtos\requests" />
+      <recent name="D:\2. Area\facultate\Instagram-SD\frontend\app\pages" />
+      <recent name="D:\2. Area\facultate\Instagram-SD\frontend\app\services\dtos" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\2. Area\facultate\Instagram-SD\frontend\app\routes" />
+      <recent name="D:\2. Area\facultate\Instagram-SD\frontend\app\services\dtos\responses" />
+      <recent name="D:\2. Area\facultate\Instagram-SD\frontend\app\services\dtos\requests" />
+      <recent name="D:\2. Area\facultate\Instagram-SD\frontend\app\pages\auth" />
       <recent name="D:\2. Area\facultate\Instagram-SD\frontend\app\pages" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="npm.dev">
+    <configuration name="PostsService" type="JavaScriptTestRunnerVitest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <vitest-package value="$PROJECT_DIR$/node_modules/vitest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <vitest-options value="--run" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/app/tests/posts_service.test.ts" />
+      <test-names>
+        <test-name value="PostsService" />
+      </test-names>
+      <method v="2" />
+    </configuration>
     <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -72,6 +124,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="npm.dev" />
+        <item itemvalue="Vitest.PostsService" />
       </list>
     </recent_temporary>
   </component>
@@ -94,10 +147,26 @@
       <workItem from="1743191616502" duration="5859000" />
       <workItem from="1743243546586" duration="17488000" />
       <workItem from="1743417499090" duration="230000" />
+      <workItem from="1744116306520" duration="9664000" />
+      <workItem from="1744148066547" duration="2134000" />
+      <workItem from="1744183000500" duration="636000" />
+      <workItem from="1744207371704" duration="5508000" />
+      <workItem from="1744279627184" duration="10240000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

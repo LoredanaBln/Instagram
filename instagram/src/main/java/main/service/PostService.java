@@ -13,6 +13,7 @@ import main.repository.IPostRepository;
 import main.repository.IUserRepository;
 import main.service.dto.PostCreateRequest;
 import main.service.dto.PostDTO;
+import main.service.dto.PostUpdateRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,7 +25,9 @@ public class PostService {
 
   public List<PostDTO> getAll(HttpSession session) {
     authenticationService.getAuthenticatedUser(session);
-    
+    System.out.println("authenticationService.getAuthenticatedUser(session).getUsername()");
+    System.out.println(authenticationService.getAuthenticatedUser(session).getUsername());
+
     return postRepository.findAll().stream()
         .map(PostDTO::withRelationships)
         .collect(Collectors.toList());
@@ -37,12 +40,11 @@ public class PostService {
 
     post.setTitle(request.getTitle());
     post.setText(request.getText());
-    post.setImagePath(new LocalImageProvider().saveImage(image));
     post.setAuthor(authenticatedUser);
+
     if (image != null && !image.isEmpty()) {
       post.setImagePath(new LocalImageProvider().saveImage(image));
     }
-    post.setAuthor(authenticatedUser);
 
     // Set parent post if this is a comment
     if (request.getParentId() != null) {
@@ -64,7 +66,7 @@ public class PostService {
         .orElseThrow(() -> new RuntimeException("Post not found with ID: " + id));
   }
 
-  public PostDTO update(Long id, PostDTO request, HttpSession session) {
+  public PostDTO update(Long id, PostUpdateRequest request, HttpSession session) throws IOException {
     User authenticatedUser = authenticationService.getAuthenticatedUser(session);
     Post post = postRepository
         .findById(id)
@@ -76,16 +78,16 @@ public class PostService {
       throw new RuntimeException("Not authorized to update this post");
     }
 
-    if (request.getAttributes().getTitle() != null) {
-      post.setTitle(request.getAttributes().getTitle());
+    if (request.getTitle() != null) {
+      post.setTitle(request.getTitle());
     }
 
-    if (request.getAttributes().getText() != null) {
-      post.setText(request.getAttributes().getText());
+    if (request.getText() != null) {
+      post.setText(request.getText());
     }
 
-    if (request.getAttributes().getImagePath() != null) {
-      post.setImagePath(request.getAttributes().getImagePath());
+    if (request.getImagePath() != null) {
+      post.setImagePath(new LocalImageProvider().saveImage(request.getImagePath()));
     }
 
     return PostDTO.withRelationships(postRepository.save(post));
