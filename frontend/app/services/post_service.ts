@@ -19,12 +19,14 @@ export class PostsService {
         text: string,
         image: Blob | null,
         postParentId: number | null,
+        tags: string[] = []
     ) : Promise<Post> {
         const newPost: PostCreateRequestDTO = {
             title,
             text,
             image,
             parentId: postParentId,
+            tags,
         };
 
         return this.postsRepository.create(newPost);
@@ -44,6 +46,7 @@ export class PostsService {
         text: string,
         image: Blob | null,
         postParentId: number | null,
+        tags: string[] = []
     ) : Promise<Post> {
         const newPost: PostUpdateRequestDTO = {
             id,
@@ -51,6 +54,7 @@ export class PostsService {
             text,
             imagePath: image,
             parentId: postParentId,
+            tags,
         };
 
         return this.postsRepository.update(newPost);

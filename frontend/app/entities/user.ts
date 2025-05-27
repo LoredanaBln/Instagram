@@ -14,6 +14,7 @@ export interface UserAttributes {
     role: string;
     score: number;
     isBanned: boolean;
+    imagePath?: string;
 }
 
 export interface UserRelationships {

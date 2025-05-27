@@ -5,7 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
-
 import main.config.Constants;
 import main.interfaces.IImageProvider;
 import org.springframework.core.io.Resource;

@@ -46,13 +46,85 @@ const Layout = ({ children }: {children: React.ReactNode}) => {
 
             {/* Right Sidebar */}
             <aside className="w-72 p-4 hidden lg:block">
-                <div className="bg-[#111] rounded-xl p-4 border border-gray-800">
-                    <h2 className="font-bold text-lg mb-2 text-[#e74c3c]">Trends for you</h2>
+                <div className="space-y-4">
+                  {/* Filter Controls */}
+                  <div className="bg-[#1a1219] rounded-xl p-4 border border-[#2a1f29]">
+                    <h2 className="font-bold text-lg mb-2 text-[#e74c3c]">
+                      Filter Posts
+                    </h2>
+                    <div className="space-y-3">
+                      <div>
+                        <label
+                          htmlFor="search"
+                          className="block text-sm font-medium text-gray-300 mb-1"
+                        >
+                          Search by Title
+                        </label>
+                        <input
+                          id="search"
+                          type="text"
+                          placeholder="Enter post title..."
+                          className="w-full p-2 rounded-lg border border-[#2a1f29] bg-[#140c13] text-white placeholder-gray-500 focus:ring-2 focus:ring-[#e74c3c] focus:border-[#e74c3c] transition-colors"
+                        />
+                      </div>
+
+                      <div>
+                        <label
+                          htmlFor="tagFilter"
+                          className="block text-sm font-medium text-gray-300 mb-1"
+                        >
+                          Filter by Tag
+                        </label>
+                        <select
+                          id="tagFilter"
+                          className="w-full p-2 rounded-lg border border-[#2a1f29] bg-[#140c13] text-white focus:ring-2 focus:ring-[#e74c3c] focus:border-[#e74c3c] transition-colors"
+                        >
+                          <option value="">All Tags</option>
+                        </select>
+                      </div>
+
+                      <div>
+                        <label
+                          htmlFor="userFilter"
+                          className="block text-sm font-medium text-gray-300 mb-1"
+                        >
+                          Filter by User
+                        </label>
+                        <select
+                          id="userFilter"
+                          className="w-full p-2 rounded-lg border border-[#2a1f29] bg-[#140c13] text-white focus:ring-2 focus:ring-[#e74c3c] focus:border-[#e74c3c] transition-colors"
+                        >
+                          <option value="">All Users</option>
+                        </select>
+                      </div>
+
+                      <div className="flex items-center pt-2">
+                        <input
+                          type="checkbox"
+                          id="ownPosts"
+                          className="w-4 h-4 text-[#e74c3c] border-[#2a1f29] rounded focus:ring-[#e74c3c] bg-[#140c13]"
+                        />
+                        <label
+                          htmlFor="ownPosts"
+                          className="ml-2 text-sm font-medium text-gray-300"
+                        >
+                          Show only my posts
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Trends */}
+                  <div className="bg-[#111] rounded-xl p-4 border border-gray-800">
+                    <h2 className="font-bold text-lg mb-2 text-[#e74c3c]">
+                      Trends for you
+                    </h2>
                     <ul className="space-y-2 text-sm text-gray-300">
                         <li className="cursor-pointer">#ReactJS</li>
                         <li>#TailwindCSS</li>
                         <li>#DarkMode</li>
                     </ul>
+                  </div>
                 </div>
             </aside>
         </div>
