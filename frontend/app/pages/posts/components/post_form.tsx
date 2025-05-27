@@ -57,13 +57,11 @@ export function PostForm({ setMessage, setType, submitButtonText, titlePlacehold
         setIsSubmitting(true);
         try {
           validateData();
-          // Convert tags string to array and clean up
           const tagArray = tags
             .split(",")
             .map((tag) => tag.trim())
             .filter((tag) => tag.length > 0)
             .map((tag) => {
-              // Remove any existing # and add it back
               const cleanTag = tag.replace(/^#+/, "").trim();
               return `#${cleanTag}`;
             });

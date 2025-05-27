@@ -53,36 +53,36 @@ export function UpdatePostForm({
     };
 
     const handleUpdate = async () => {
-    if (isSubmitting) return;
-    setIsSubmitting(true);
+        if (isSubmitting) return;
+        setIsSubmitting(true);
 
-    try {
-            validateData();
-            const tagArray = tags
-              .split(",")
-              .map((tag) => tag.trim())
-              .filter((tag) => tag.length > 0)
-              .map((tag) => {
-                const cleanTag = tag.replace(/^#+/, "").trim();
-                return `#${cleanTag}`;
-              });
+        try {
+                validateData();
+                const tagArray = tags
+                  .split(",")
+                  .map((tag) => tag.trim())
+                  .filter((tag) => tag.length > 0)
+                  .map((tag) => {
+                    const cleanTag = tag.replace(/^#+/, "").trim();
+                    return `#${cleanTag}`;
+                  });
 
-      await new PostsService().update(
-        post.id,
-        postTitle,
-        postText,
-        selectedImage,
-        post.relationships.post?.id,
-        tagArray
-      );
-      setType(AlertDestructiveEnum.success);
-      setMessage("Post updated successfully.");
-    } catch (err) {
-      setType(AlertDestructiveEnum.error);
-      setMessage(err instanceof Error ? err.message : "An unknown error occurred.");
-    } finally {
-      setIsSubmitting(false);
-    }
+          await new PostsService().update(
+            post.id,
+            postTitle,
+            postText,
+            selectedImage,
+            post.relationships.post?.id,
+            tagArray
+          );
+          setType(AlertDestructiveEnum.success);
+          setMessage("Post updated successfully.");
+        } catch (err) {
+          setType(AlertDestructiveEnum.error);
+          setMessage(err instanceof Error ? err.message : "An unknown error occurred.");
+        } finally {
+          setIsSubmitting(false);
+        }
   };
 
     return (
