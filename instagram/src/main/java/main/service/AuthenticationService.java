@@ -9,15 +9,15 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
-    private final IUserRepository userRepository;
+  private final IUserRepository userRepository;
 
-    public User getAuthenticatedUser(HttpSession session) {
-        Long userId = (Long) session.getAttribute("userId");
-        if (userId == null) {
-            throw new RuntimeException("Not authenticated");
-        }
-        return userRepository
-                .findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+  public User getAuthenticatedUser(HttpSession session) {
+    Long userId = (Long) session.getAttribute("userId");
+    if (userId == null) {
+      throw new RuntimeException("Not authenticated");
     }
-} 
+    return userRepository
+        .findById(userId)
+        .orElseThrow(() -> new RuntimeException("User not found"));
+  }
+}

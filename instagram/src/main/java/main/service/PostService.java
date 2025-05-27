@@ -1,26 +1,28 @@
 package main.service;
 
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import main.entity.Post;
 import main.entity.User;
 import main.entity.UserType;
 import main.repository.IPostRepository;
-import main.repository.IUserRepository;
+import main.repository.ITagRepository;
 import main.service.dto.PostCreateRequest;
 import main.service.dto.PostDTO;
 import main.service.dto.PostUpdateRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
 public class PostService {
   private final IPostRepository postRepository;
+  private final ITagRepository tagRepository;
+  private final TagService tagService;
   private final AuthenticationService authenticationService;
 
   public List<PostDTO> getAll(HttpSession session) {
@@ -33,11 +35,12 @@ public class PostService {
         .collect(Collectors.toList());
   }
 
-  public PostDTO create(PostCreateRequest request, MultipartFile image, HttpSession session) throws IOException {
+  @Transactional
+  public PostDTO create(PostCreateRequest request, MultipartFile image, HttpSession session)
+      throws IOException {
     User authenticatedUser = authenticationService.getAuthenticatedUser(session);
 
     Post post = new Post();
-
     post.setTitle(request.getTitle());
     post.setText(request.getText());
     post.setAuthor(authenticatedUser);
@@ -48,10 +51,17 @@ public class PostService {
 
     // Set parent post if this is a comment
     if (request.getParentId() != null) {
-      Post parent = postRepository
-                .findById(request.getParentId())
-                .orElseThrow(() -> new RuntimeException("Post not found with ID: " + request.getParentId()));
+      Post parent =
+          postRepository
+              .findById(request.getParentId())
+              .orElseThrow(
+                  () -> new RuntimeException("Post not found with ID: " + request.getParentId()));
       post.setParent(parent);
+    }
+
+    // Add tags if provided
+    if (request.getTags() != null) {
+      post.setTags(tagService.createOrGetTags(request.getTags()));
     }
 
     return PostDTO.withRelationships(postRepository.save(post));
@@ -59,21 +69,24 @@ public class PostService {
 
   public PostDTO get(Long id, HttpSession session) {
     authenticationService.getAuthenticatedUser(session);
-    
+
     return postRepository
         .findById(id)
         .map(PostDTO::withRelationships)
         .orElseThrow(() -> new RuntimeException("Post not found with ID: " + id));
   }
 
-  public PostDTO update(Long id, PostUpdateRequest request, HttpSession session) throws IOException {
+  @Transactional
+  public PostDTO update(Long id, PostUpdateRequest request, HttpSession session)
+      throws IOException {
     User authenticatedUser = authenticationService.getAuthenticatedUser(session);
-    Post post = postRepository
-        .findById(id)
-        .orElseThrow(() -> new RuntimeException("Post not found with ID: " + id));
+    Post post =
+        postRepository
+            .findById(id)
+            .orElseThrow(() -> new RuntimeException("Post not found with ID: " + id));
 
     // Check if user is author or moderator
-    if (!post.getAuthor().getId().equals(authenticatedUser.getId()) 
+    if (!post.getAuthor().getId().equals(authenticatedUser.getId())
         && !authenticatedUser.getRole().equals(UserType.MODERATOR)) {
       throw new RuntimeException("Not authorized to update this post");
     }
@@ -90,21 +103,29 @@ public class PostService {
       post.setImagePath(new LocalImageProvider().saveImage(request.getImagePath()));
     }
 
+    // Update tags if provided
+    if (request.getTags() != null) {
+      post.setTags(tagService.createOrGetTags(request.getTags()));
+    }
+
     return PostDTO.withRelationships(postRepository.save(post));
   }
 
   public void delete(Long id, HttpSession session) {
     User authenticatedUser = authenticationService.getAuthenticatedUser(session);
-    Post post = postRepository
-        .findById(id)
-        .orElseThrow(() -> new RuntimeException("Post not found with ID: " + id));
+    Post post =
+        postRepository
+            .findById(id)
+            .orElseThrow(() -> new RuntimeException("Post not found with ID: " + id));
 
     // Check if user is author or moderator
-    if (!post.getAuthor().getId().equals(authenticatedUser.getId()) 
+    if (!post.getAuthor().getId().equals(authenticatedUser.getId())
         && !authenticatedUser.getRole().equals(UserType.MODERATOR)) {
       throw new RuntimeException("Not authorized to delete this post");
     }
 
     postRepository.deleteById(id);
+    // Clean up any unused tags
+    tagService.deleteUnusedTags();
   }
 }

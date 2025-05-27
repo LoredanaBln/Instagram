@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import main.security.RequireAuthentication;
 import main.service.UserService;
 import main.service.dto.UserDTO;
 import main.service.dto.UserUpdateRequest;
@@ -14,8 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import main.security.RequireAuthentication;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -31,7 +30,8 @@ public class UserController {
   }
 
   @PostMapping
-  public ResponseEntity<UserDTO> create(@RequestBody  RegistrationRequest request, HttpSession session) throws IOException {
+  public ResponseEntity<UserDTO> create(
+      @RequestBody RegistrationRequest request, HttpSession session) throws IOException {
     UserDTO createdUser = userService.create(request, session);
 
     return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
@@ -49,7 +49,7 @@ public class UserController {
   @PutMapping("/{id}")
   @RequireAuthentication
   public ResponseEntity<UserDTO> update(
-          @PathVariable Long id, @RequestBody UserUpdateRequest userDTO, HttpSession session) {
+      @PathVariable Long id, @RequestBody UserUpdateRequest userDTO, HttpSession session) {
     try {
       return ResponseEntity.ok(userService.update(id, userDTO, session));
     } catch (RuntimeException e) {

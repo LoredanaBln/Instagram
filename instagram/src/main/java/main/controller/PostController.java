@@ -1,9 +1,8 @@
 package main.controller;
 
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
-
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import main.security.RequireAuthentication;
 import main.service.PostService;
@@ -28,7 +27,7 @@ public class PostController {
     try {
       return ResponseEntity.status(HttpStatus.OK.value()).body(postService.getAll(session));
     } catch (RuntimeException e) {
-      if (e.getMessage().contains("Not authenticated")) {
+      if (e.getMessage() != null && e.getMessage().contains("Not authenticated")) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
       }
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -38,13 +37,11 @@ public class PostController {
   @PostMapping
   @RequireAuthentication
   public ResponseEntity<PostDTO> create(
-    @ModelAttribute PostCreateRequest request,
-    @RequestParam(value = "image", required = false) MultipartFile image,
-    HttpSession session
-  ) {
+      @ModelAttribute PostCreateRequest request,
+      @RequestParam(value = "image", required = false) MultipartFile image,
+      HttpSession session) {
     try {
       PostDTO createdComment = postService.create(request, image, session);
-
       return ResponseEntity.status(HttpStatus.CREATED).body(createdComment);
     } catch (java.io.IOException exception) {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -57,7 +54,7 @@ public class PostController {
     try {
       return ResponseEntity.ok(postService.get(id, session));
     } catch (RuntimeException e) {
-      if (e.getMessage().contains("Not authenticated")) {
+      if (e.getMessage() != null && e.getMessage().contains("Not authenticated")) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
       }
       return ResponseEntity.notFound().build();
@@ -67,19 +64,25 @@ public class PostController {
   @PutMapping("/{id}")
   @RequireAuthentication
   public ResponseEntity<PostDTO> updatePostById(
-          @PathVariable Long id,
-          @ModelAttribute PostUpdateRequest postDTO,
-          HttpSession session) {
+      @PathVariable Long id, @ModelAttribute PostUpdateRequest postDTO, HttpSession session) {
     try {
       return ResponseEntity.ok(postService.update(id, postDTO, session));
     } catch (RuntimeException | IOException e) {
-      if (e.getMessage().contains("Not authenticated")) {
+      String message = e.getMessage();
+      if (message == null) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+      }
+
+      if (message.contains("Not authenticated")) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
       }
-      if (e.getMessage().contains("Not authorized")) {
+      if (message.contains("Not authorized")) {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
       }
-      return ResponseEntity.notFound().build();
+      if (message.contains("Post not found")) {
+        return ResponseEntity.notFound().build();
+      }
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
   }
 
@@ -90,13 +93,21 @@ public class PostController {
       postService.delete(id, session);
       return ResponseEntity.noContent().build();
     } catch (RuntimeException e) {
-      if (e.getMessage().contains("Not authenticated")) {
+      String message = e.getMessage();
+      if (message == null) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+      }
+
+      if (message.contains("Not authenticated")) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
       }
-      if (e.getMessage().contains("Not authorized")) {
+      if (message.contains("Not authorized")) {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
       }
-      return ResponseEntity.notFound().build();
+      if (message.contains("Post not found")) {
+        return ResponseEntity.notFound().build();
+      }
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
   }
 }

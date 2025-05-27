@@ -3,11 +3,10 @@ package main.service.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserUpdateRequest {
-    private boolean banned;
+  private boolean banned;
 }

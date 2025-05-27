@@ -32,9 +32,12 @@ public class PostDTO {
             post.getTitle(),
             post.getText(),
             post.getStatus(),
-            post.getImagePath() == null ? null : new LocalImageProvider().getUrl(post.getImagePath()),
+            post.getImagePath() == null
+                ? null
+                : new LocalImageProvider().getUrl(post.getImagePath()),
             post.getCreatedAt(),
-            post.getUpdatedAt());
+            post.getUpdatedAt(),
+            post.getTags().stream().map(tag -> tag.getTitle()).collect(Collectors.toList()));
     this.relationships =
         includeRelationships
             ? new PostRelationships(post.getAuthor(), post.getParent(), post.getComments())
@@ -60,6 +63,7 @@ public class PostDTO {
     private String imagePath;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private List<String> tags;
   }
 
   @Data

@@ -9,23 +9,25 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 @Component
 public class AuthenticationInterceptor implements HandlerInterceptor {
-    
-    @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        if (!(handler instanceof HandlerMethod handlerMethod)) {
-            return true;
-        }
 
-        RequireAuthentication requireAuth = handlerMethod.getMethodAnnotation(RequireAuthentication.class);
-
-        if (requireAuth != null) {
-            HttpSession session = request.getSession(false);
-            if (session == null || session.getAttribute("userId") == null) {
-                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                return false;
-            }
-        }
-
-        return true;
+  @Override
+  public boolean preHandle(
+      HttpServletRequest request, HttpServletResponse response, Object handler) {
+    if (!(handler instanceof HandlerMethod handlerMethod)) {
+      return true;
     }
-} 
+
+    RequireAuthentication requireAuth =
+        handlerMethod.getMethodAnnotation(RequireAuthentication.class);
+
+    if (requireAuth != null) {
+      HttpSession session = request.getSession(false);
+      if (session == null || session.getAttribute("userId") == null) {
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        return false;
+      }
+    }
+
+    return true;
+  }
+}

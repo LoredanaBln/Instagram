@@ -19,6 +19,8 @@ export function PostForm({ setMessage, setType, submitButtonText, titlePlacehold
     const [selectedImage, setSelectedImage] = useState<File | null>(null);
     const [imagePreview, setImagePreview] = useState<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const [tags, setTags] = useState<string>("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
@@ -35,6 +37,7 @@ export function PostForm({ setMessage, setType, submitButtonText, titlePlacehold
         if (fileInputRef.current) {
             fileInputRef.current.value = "";
         }
+        setTags("");
     }
 
     function validateData(){
@@ -47,35 +50,65 @@ export function PostForm({ setMessage, setType, submitButtonText, titlePlacehold
         }
     }
 
-    const handlePost = () => {
-        try {
-            validateData();
-            new PostsService().create(postTitle, postText, selectedImage, postParentId).then(() => {
-                clearInputs();
-                setType(AlertDestructiveEnum.success);
-                setMessage("Post created successfully.");
-            });
-        } catch (err) {
-            setType(AlertDestructiveEnum.error);
-            setMessage(err instanceof Error ? err.message : "An unknown error occurred. Hold tight!");
-        }
-    };
+      const handlePost = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (isSubmitting) return;
 
-    return (
-        <div className="flex flex-col bg-[#1c1c1c] text-white p-4 rounded-lg mx-auto">
-            <input type="text"
-                   placeholder={titlePlaceholder}
-                   value={postTitle}
-                   onChange={(e) => setPostTitle(e.target.value)}
-                   className="w-full font-bold mb-2 bg-transparent text-lg outline-none placeholder:text-gray-500 resize-none transition"
-            />
-            <textarea
-                className="w-full text-gray-200 bg-transparent text-lg outline-none placeholder:text-gray-500 resize-none transition"
-                rows={textareaSize}
-                placeholder="Tell us more..."
-                value={postText}
-                onChange={(e) => setPostText(e.target.value)}
-            />
+        setIsSubmitting(true);
+        try {
+          validateData();
+          // Convert tags string to array and clean up
+          const tagArray = tags
+            .split(",")
+            .map((tag) => tag.trim())
+            .filter((tag) => tag.length > 0)
+            .map((tag) => {
+              // Remove any existing # and add it back
+              const cleanTag = tag.replace(/^#+/, "").trim();
+              return `#${cleanTag}`;
+            });
+
+          await new PostsService().create(
+            postTitle,
+            postText,
+            selectedImage,
+            postParentId,
+            tagArray
+          );
+          clearInputs();
+          setType(AlertDestructiveEnum.success);
+          setMessage("Post created successfully.");
+        } catch (err) {
+          setType(AlertDestructiveEnum.error);
+          setMessage(
+            err instanceof Error
+              ? err.message
+              : "An unknown error occurred. Hold tight!"
+          );
+        } finally {
+          setIsSubmitting(false);
+        }
+      };
+
+      return (
+        <form
+          onSubmit={handlePost}
+          className="flex flex-col bg-[#1c1c1c] text-white p-4 rounded-lg mx-auto"
+        >
+          <input
+            type="text"
+            placeholder={titlePlaceholder}
+            value={postTitle}
+            onChange={(e) => setPostTitle(e.target.value)}
+            className="w-full font-bold mb-2 bg-transparent text-lg outline-none placeholder:text-gray-500 resize-none transition"
+          />
+          <textarea
+            className="w-full text-gray-200 bg-transparent text-lg outline-none placeholder:text-gray-500 resize-none transition"
+            rows={textareaSize}
+            placeholder="Tell us more..."
+            value={postText}
+            onChange={(e) => setPostText(e.target.value)}
+          />
 
             {imagePreview && (
                 <div className="mt-4">
@@ -103,21 +136,27 @@ export function PostForm({ setMessage, setType, submitButtonText, titlePlacehold
                     </button>
                 </div>
 
-                {/* Post button */}
-                <button
-                    onClick={handlePost}
-                    className="cursor-pointer relative uppercase group border-2 border-[#e74c3c] overflow-clip bg-[#140c13] rounded-full px-10 py-1 shadow-[0_0_7px_#e74c3c]"
-                >
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="cursor-pointer relative uppercase group border-2 border-[#e74c3c] overflow-clip bg-[#140c13] rounded-full px-10 py-1 shadow-[0_0_7px_#e74c3c] disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          <span className="relative z-10 flex items-center font-bold">
+            {isSubmitting ? "Posting..." : submitButtonText}
+          </span>
+          <span className="absolute top-0 bottom-0 left-[-10%] w-[200%] bg-[#e74c3c] transform -translate-x-full skew-x-[-20deg] transition-transform duration-300 ease-in-out group-hover:translate-x-0"></span>
+        </button>
+      </div>
 
-                    {/* Button text (kept above the overlay) */}
-                    <span className="relative z-10 flex items-center font-bold">
-                      {submitButtonText}
-                    </span>
-
-                    {/* Overlay that slides in on hover */}
-                    <span className="absolute top-0 bottom-0 left-[-10%] w-[200%] bg-[#e74c3c] transform -translate-x-full skew-x-[-20deg] transition-transform duration-300 ease-in-out group-hover:translate-x-0"></span>
-                </button>
-            </div>
-        </div>
-    );
+      <div>
+        <input
+          type="text"
+          value={tags}
+          onChange={(e) => setTags(e.target.value)}
+          placeholder="Add tags (comma separated, e.g. #tech, #news)"
+          className="w-full p-2 rounded-lg border border-[#2a1f29] bg-[#140c13] text-white placeholder-gray-500 focus:ring-2 focus:ring-[#e74c3c] focus:border-[#e74c3c] transition-colors"
+        />
+      </div>
+    </form>
+  );
 }

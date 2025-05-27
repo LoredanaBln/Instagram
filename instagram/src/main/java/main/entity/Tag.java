@@ -1,21 +1,24 @@
 package main.entity;
 
 import jakarta.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "tag")
+@Table(name = "tags")
 public class Tag {
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", nullable = false)
-  private Long tag_id;
+  private Long id;
 
-  @ManyToOne
-  @JoinColumn(name = "post_post_id")
-  private Post post;
-
+  @Column(name = "title", nullable = false, unique = true)
   private String title;
+
+  @ManyToMany(mappedBy = "tags")
+  private Set<Post> posts = new HashSet<>();
 }

@@ -4,7 +4,12 @@ export default class ObjectFlattener{
             const value = obj[key];
             const prefixedKey = prefix ? `${prefix}${key}` : key;
 
-            if (typeof value === 'object' && value !== null && !(value instanceof File)) {
+            if (Array.isArray(value)) {
+                value.forEach((item, index) => {
+                result[`${prefixedKey}[${index}]`] = item;
+                });
+            } else if (
+            typeof value === 'object' && value !== null && !(value instanceof File)) {
                 ObjectFlattener.handle(value, `${prefixedKey}.`, result);
             } else {
                 result[prefixedKey] = value;

@@ -18,17 +18,17 @@ export class PostRepository {
 
     async create(data: PostCreateRequestDTO) {
         const formData = new FormData();
-        Object.entries(ObjectFlattener.handle(data)).forEach(([key, value]) => {
+      const flattenedData = ObjectFlattener.handle(data);
+
+        Object.entries(flattenedData).forEach(([key, value]) => {
             if (value !== null && value !== undefined) {
                 formData.append(key, value as string | Blob);
             }
         });
 
-        const response = await api.post<Post>(ENDPOINTS.POSTS, formData, {
-
-        });
-        return response.data;
-    }
+    const response = await api.post<Post>(ENDPOINTS.POSTS, formData);
+    return response.data;
+  }
 
     async find(id: string): Promise<Post> {
         try {
@@ -50,7 +50,9 @@ export class PostRepository {
 
     async update(data: PostUpdateRequestDTO) {
         const formData = new FormData();
-        Object.entries(ObjectFlattener.handle(data)).forEach(([key, value]) => {
+        const flattenedData = ObjectFlattener.handle(data);
+
+        Object.entries(flattenedData).forEach(([key, value]) => {
             if (value !== null && value !== undefined) {
                 formData.append(key, value as string | Blob);
             }

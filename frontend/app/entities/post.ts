@@ -15,6 +15,7 @@ export interface PostAttributes {
     imagePath: string;
     createdAt: string;
     updatedAt: string;
+    tags: string[];
 }
 
 export interface PostRelationships {

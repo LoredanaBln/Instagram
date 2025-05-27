@@ -9,17 +9,17 @@ import org.springframework.session.web.http.DefaultCookieSerializer;
 @Configuration
 public class SessionConfig {
 
-    @Bean
-    public CookieSerializer cookieSerializer() {
-        DefaultCookieSerializer serializer = new DefaultCookieSerializer();
-        serializer.setUseSecureCookie(true); // for HTTPS
-        serializer.setSameSite("Strict");
-        serializer.setUseHttpOnlyCookie(true);
-        return serializer;
-    }
+  @Bean
+  public CookieSerializer cookieSerializer() {
+    DefaultCookieSerializer serializer = new DefaultCookieSerializer();
+    serializer.setUseSecureCookie(true); // for HTTPS
+    serializer.setSameSite("Strict");
+    serializer.setUseHttpOnlyCookie(true);
+    return serializer;
+  }
 
-    @Bean
-    public HttpSessionEventPublisher httpSessionEventPublisher() {
-        return new HttpSessionEventPublisher();
-    }
-} 
+  @Bean
+  public HttpSessionEventPublisher httpSessionEventPublisher() {
+    return new HttpSessionEventPublisher();
+  }
+}

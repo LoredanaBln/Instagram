@@ -25,11 +25,14 @@ export function UpdatePostForm({
     const [selectedImage, setSelectedImage] = useState<File | null>(null);
     const [imagePreview, setImagePreview] = useState<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const [tags, setTags] = useState<string>("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
         setPostTitle(post.attributes.title);
         setPostText(post.attributes.text);
         setImagePreview(post.attributes.imagePath);
+        setTags(post.attributes.tags?.join(", ") || "");
     }, [post.id]);
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,18 +52,38 @@ export function UpdatePostForm({
         }
     };
 
-    const handleUpdate = () => {
-        try {
+    const handleUpdate = async () => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+
+    try {
             validateData();
-            new PostsService().update(post.id, postTitle, postText, selectedImage, post.relationships.post?.id).then(() => {
-                setType(AlertDestructiveEnum.success);
-                setMessage("Post updated successfully.");
-            });
-        } catch (err) {
-            setType(AlertDestructiveEnum.error);
-            setMessage(err instanceof Error ? err.message : "An unknown error occurred.");
-        }
-    };
+            const tagArray = tags
+              .split(",")
+              .map((tag) => tag.trim())
+              .filter((tag) => tag.length > 0)
+              .map((tag) => {
+                const cleanTag = tag.replace(/^#+/, "").trim();
+                return `#${cleanTag}`;
+              });
+
+      await new PostsService().update(
+        post.id,
+        postTitle,
+        postText,
+        selectedImage,
+        post.relationships.post?.id,
+        tagArray
+      );
+      setType(AlertDestructiveEnum.success);
+      setMessage("Post updated successfully.");
+    } catch (err) {
+      setType(AlertDestructiveEnum.error);
+      setMessage(err instanceof Error ? err.message : "An unknown error occurred.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
     return (
         <div className="flex flex-col bg-[#1c1c1c] text-white p-4 rounded-lg mx-auto">
@@ -103,13 +126,28 @@ export function UpdatePostForm({
 
                 <button
                     onClick={handleUpdate}
-                    className="cursor-pointer relative uppercase group border-2 border-[#e74c3c] overflow-clip bg-[#140c13] rounded-full px-10 py-1 shadow-[0_0_7px_#e74c3c]"
-                >
+                    disabled={isSubmitting}
+                    className="cursor-pointer relative uppercase group border-2 border-[#e74c3c] overflow-clip bg-[#140c13] rounded-full px-10 py-1 shadow-[0_0_7px_#e74c3c] disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
                     <span className="relative z-10 flex items-center font-bold">
-                        {submitButtonText}
+                      {isSubmitting ? "Updating..." : submitButtonText}
                     </span>
                     <span className="absolute top-0 bottom-0 left-[-10%] w-[200%] bg-[#e74c3c] transform -translate-x-full skew-x-[-20deg] transition-transform duration-300 ease-in-out group-hover:translate-x-0"></span>
-                </button>
+                  </button>
+            </div>
+
+            <div className="mt-4">
+              <input
+                type="text"
+                value={tags}
+                onChange={(e) => setTags(e.target.value)}
+                placeholder="Add tags (comma separated, e.g. #tech, #news)"
+                className="w-full p-2 rounded-lg border border-[#2a1f29] bg-[#140c13] text-white placeholder-gray-500 focus:ring-2 focus:ring-[#e74c3c] focus:border-[#e74c3c] transition-colors"
+              />
+              <p className="text-sm text-gray-400 mt-1">
+                Separate tags with commas. Tags will automatically be prefixed with #
+                if not already present.
+              </p>
             </div>
         </div>
     );
