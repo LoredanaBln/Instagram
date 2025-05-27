@@ -4,28 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3a06219a-0e59-490a-972e-c014166d5682" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../instagram/src/main/java/main/repository/ITagRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/config/object_flattner.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/config/object_flattner.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/entities/post.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/entities/post.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/entities/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/entities/user.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/pages/layouts/main_layouts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/layouts/main_layouts.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/pages/posts/components/post_card.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/posts/components/post_card.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/pages/posts/components/post_form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/posts/components/post_form.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/pages/posts/components/update_post_form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/posts/components/update_post_form.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/pages/posts/post_index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/posts/post_index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/repositories/post_repository.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/repositories/post_repository.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/services/dtos/requests/post_create_request_dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/dtos/requests/post_create_request_dto.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/services/dtos/requests/post_update_request_dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/dtos/requests/post_update_request_dto.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/services/post_service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/post_service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../instagram/src/main/java/main/service/EmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../instagram/src/main/java/main/service/EmailService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../instagram/src/main/java/main/service/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../instagram/src/main/java/main/service/PostService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../instagram/src/main/java/main/service/SmsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../instagram/src/main/java/main/service/SmsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../instagram/src/main/java/main/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../instagram/src/main/java/main/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../instagram/src/main/java/main/service/dto/PostDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../instagram/src/main/java/main/service/dto/PostDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../instagram/src/main/java/main/service/dto/PostUpdateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../instagram/src/main/java/main/service/dto/PostUpdateRequest.java" afterDir="false" />
-    </list>
+    <list default="true" id="3a06219a-0e59-490a-972e-c014166d5682" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,7 +16,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Vitest.posts_service.test.ts.executor": "Run",
-    "git-widget-placeholder": "development",
+    "git-widget-placeholder": "TAGS",
     "node.js.selected.package.tslint": "(autodetect)",
     "npm.dev.executor": "Run",
     "ts.external.directory.path": "E:\\AN3\\SEM2\\ps_\\assignment\\frontend\\node_modules\\typescript\\lib"
