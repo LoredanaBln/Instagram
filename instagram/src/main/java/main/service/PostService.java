@@ -21,7 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 public class PostService {
   private final IPostRepository postRepository;
-  private final ITagRepository tagRepository;
   private final TagService tagService;
   private final AuthenticationService authenticationService;
 

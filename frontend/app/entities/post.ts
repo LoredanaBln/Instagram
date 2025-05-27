@@ -1,4 +1,6 @@
-import type {User} from "~/entities/user";
+import type { User } from "./user";
+import type { Tag } from "./tag";
+import type { Vote } from "./vote";
 
 export interface Post {
     type: string;
@@ -6,6 +8,8 @@ export interface Post {
     attributes: PostAttributes;
     relationships: PostRelationships;
     links: PostLinks;
+    votes: Vote[];
+    tags: Tag[];
 }
 
 export interface PostAttributes {
