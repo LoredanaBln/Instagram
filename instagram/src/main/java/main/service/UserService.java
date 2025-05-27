@@ -24,6 +24,8 @@ public class UserService {
   private final IUserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
   private final AuthenticationService authenticationService;
+  private final EmailService emailService;
+  private final SmsService smsService;
 
   public List<UserDTO> getAll() {
     return userRepository.findAll().stream()
@@ -69,11 +71,22 @@ public class UserService {
       throw new RuntimeException("Not authorized to update this user");
     }
 
-    System.out.println(request.isBanned());
-
+    boolean wasBanned = user.isBanned();
     user.setBanned(request.isBanned());
+    User savedUser = userRepository.save(user);
 
-    return UserDTO.withRelationships(userRepository.save(user));
+    if (!wasBanned && request.isBanned()) {
+      try {
+        emailService.sendBanNotification(user.getEmail(), user.getUsername());
+        if (user.getPhoneNumber() != null && !user.getPhoneNumber().isEmpty()) {
+          smsService.sendBanNotification(user.getPhoneNumber(), user.getUsername());
+        }
+      } catch (Exception e) {
+        System.err.println("Failed to send ban notifications: " + e.getMessage());
+      }
+    }
+
+    return UserDTO.withRelationships(savedUser);
   }
 
   public void delete(Long id, HttpSession session) {
