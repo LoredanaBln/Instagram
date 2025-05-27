@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3a06219a-0e59-490a-972e-c014166d5682" name="Changes" comment="" />
+    <list default="true" id="3a06219a-0e59-490a-972e-c014166d5682" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/app/entities/tag.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/config/endpoint.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/config/endpoint.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/entities/post.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/entities/post.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/pages/posts/components/post_card.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/posts/components/post_card.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/pages/posts/post_show.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/posts/post_show.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../instagram/src/main/java/main/service/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../instagram/src/main/java/main/service/PostService.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,7 +24,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Vitest.posts_service.test.ts.executor": "Run",
-    "git-widget-placeholder": "TAGS",
+    "git-widget-placeholder": "VOTE",
     "node.js.selected.package.tslint": "(autodetect)",
     "npm.dev.executor": "Run",
     "ts.external.directory.path": "E:\\AN3\\SEM2\\ps_\\assignment\\frontend\\node_modules\\typescript\\lib"

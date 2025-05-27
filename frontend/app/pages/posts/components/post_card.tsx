@@ -1,10 +1,19 @@
-import type {Post} from "~/entities/post";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faComment, faHeart, faHeartBroken, faPen, faStar, faTrash} from "@fortawesome/free-solid-svg-icons";
-import {DateFormatter} from "~/utils/date_formatter";
-import React, {useState, useEffect} from "react";
-import {PostsService} from "~/services/post_service";
-import {AlertDestructiveEnum} from "~/components/alert_destructive";
+import type { Post } from "~/entities/post";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faComment,
+  faHeart,
+  faHeartBroken,
+  faPen,
+  faStar,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
+import { DateFormatter } from "~/utils/date_formatter";
+import React, { useState, useEffect } from "react";
+import { PostsService } from "~/services/post_service";
+import { AlertDestructiveEnum } from "~/components/alert_destructive";
+import { VoteService } from "~/services/vote_service";
+import type { VoteType } from "~/entities/vote";
 
 interface PostCardProps {
     post: Post;
@@ -12,15 +21,94 @@ interface PostCardProps {
     setType: (type: AlertDestructiveEnum) => void;
 }
 
+interface VoteCount {
+  postId: number;
+  count: number;
+  upvotes: number;
+  downvotes: number;
+}
+
 export function PostCard({ post, setMessage, setType }: PostCardProps) {
   const [currentPost, setCurrentPost] = useState(post);
+  const [voteCount, setVoteCount] = useState<VoteCount>({
+    postId: post.id,
+    count: 0,
+    upvotes: 0,
+    downvotes: 0,
+  });
+  const [userVote, setUserVote] = useState<VoteType | null>(null);
+  const [isVoting, setIsVoting] = useState(false);
+  const voteService = new VoteService();
 
-    useEffect(() => {
-        new PostsService().find(post.id.toString()).then(freshPost => { setCurrentPost(freshPost); })
-    }, [post.id]);
+  useEffect(() => {
+    const fetchPostData = async () => {
+      try {
+        const freshPost = await new PostsService().find(post.id.toString());
+        setCurrentPost(freshPost);
 
-    function deletePost(event: React.MouseEvent<HTMLSpanElement>, id: number) {
-        event.preventDefault();
+        // Get vote count
+        const voteData = await voteService.getVoteCount(post.id);
+        setVoteCount(voteData);
+
+        // Check if user has voted
+        const userVote = freshPost.votes?.find(
+          (v) =>
+            v.user.attributes.username === sessionStorage.getItem("username")
+        );
+        if (userVote) {
+          setUserVote(userVote.type);
+        }
+      } catch (error) {
+        console.error("Error fetching post data:", error);
+      }
+    };
+
+    fetchPostData();
+  }, [post.id]);
+
+  async function handleVote(type: VoteType) {
+    if (isVoting) return;
+
+    try {
+      setIsVoting(true);
+      const username = sessionStorage.getItem("username");
+      if (!username) {
+        setType(AlertDestructiveEnum.error);
+        setMessage("Please login to vote");
+        return;
+      }
+
+      if (
+        currentPost.relationships?.author?.attributes?.username === username
+      ) {
+        setType(AlertDestructiveEnum.error);
+        setMessage("You cannot vote on your own posts");
+        return;
+      }
+
+      await voteService.vote(currentPost.id, type);
+
+      // Update vote count
+      const newVoteData = await voteService.getVoteCount(currentPost.id);
+      setVoteCount(newVoteData);
+
+      // Update user's vote
+      setUserVote(userVote === type ? null : type);
+
+      setType(AlertDestructiveEnum.success);
+      setMessage("Vote recorded successfully");
+    } catch (error) {
+      setType(AlertDestructiveEnum.error);
+      setMessage(
+        error instanceof Error ? error.message : "Failed to record vote"
+      );
+    } finally {
+      setIsVoting(false);
+    }
+  }
+
+  function deletePost(event: React.MouseEvent<HTMLSpanElement>, id: number) {
+    event.preventDefault();
 
         new PostsService().delete(id.toString()).then(() => {
             setType(AlertDestructiveEnum.success);
@@ -54,13 +142,15 @@ export function PostCard({ post, setMessage, setType }: PostCardProps) {
                 </span>
                 {canEditPost(currentPost) && (
                   <div className="flex items-center justify-end">
-                    <a
+                    <button
+                      onClick={() =>
+                        (window.location.href = `/posts/${currentPost.id.toString()}/edit`)
+                      }
                       className="text-orange-600 mr-4 text-sm cursor-pointer hover:underline"
-                      href={`/posts/${currentPost.id.toString()}/edit`}
                     >
                       Edit
                       <FontAwesomeIcon icon={faPen} className="ml-2" />
-                    </a>
+                    </button>
                     <span
                       className="text-red-700 text-sm cursor-pointer hover:underline"
                       onClick={(e) => deletePost(e, currentPost.id)}
@@ -109,7 +199,7 @@ export function PostCard({ post, setMessage, setType }: PostCardProps) {
               />
             </div>
             <span className="text-gray-400 group-hover:text-[#e74c3c] transition-all duration-300">
-              1,600
+              {voteCount.count}
             </span>
           </div>
           <div className="group flex items-center space-x-2 cursor-pointer transition-all duration-500">
@@ -124,28 +214,62 @@ export function PostCard({ post, setMessage, setType }: PostCardProps) {
               {currentPost.relationships?.comments?.length ?? "0"}
             </span>
           </div>
-          <div className="group flex items-center space-x-2 cursor-pointer transition-all duration-500">
+          <div
+            className="group flex items-center space-x-2 cursor-pointer transition-all duration-500"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              handleVote("UPVOTE");
+            }}
+          >
             <div className="relative">
               <div className="absolute w-6 h-6 rounded-full group-hover:scale-100 bg-[#2ecc71] transition-all duration-200 opacity-20 scale-0 -translate-x-1/5 -translate-y-1/16" />
               <FontAwesomeIcon
                 icon={faHeart}
-                className="text-gray-400 group-hover:text-[#2ecc71] relative transition-all duration-300"
+                className={`${
+                  userVote === "UPVOTE"
+                    ? "text-[#2ecc71]"
+                    : "text-gray-400 group-hover:text-[#2ecc71]"
+                } relative transition-all duration-300`}
               />
             </div>
-            <span className="text-gray-400 group-hover:text-[#2ecc71] transition-all duration-300">
-              21.0K
+            <span
+              className={`${
+                userVote === "UPVOTE"
+                  ? "text-[#2ecc71]"
+                  : "text-gray-400 group-hover:text-[#2ecc71]"
+              } transition-all duration-300`}
+            >
+              {voteCount.upvotes} Upvotes
             </span>
           </div>
-          <div className="group flex items-center space-x-2 cursor-pointer transition-all duration-500">
+          <div
+            className="group flex items-center space-x-2 cursor-pointer transition-all duration-500"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              handleVote("DOWN_VOTE");
+            }}
+          >
             <div className="relative">
               <div className="absolute w-6 h-6 rounded-full group-hover:scale-100 bg-[#d35400] transition-all duration-200 opacity-20 scale-0 -translate-x-1/5 -translate-y-1/16" />
               <FontAwesomeIcon
                 icon={faHeartBroken}
-                className="text-gray-400 group-hover:text-[#d35400] relative transition-all duration-300"
+                className={`${
+                  userVote === "DOWN_VOTE"
+                    ? "text-[#d35400]"
+                    : "text-gray-400 group-hover:text-[#d35400]"
+                } relative transition-all duration-300`}
               />
             </div>
-            <span className="text-gray-400 group-hover:text-[#d35400] transition-all duration-300">
-              19.4K
+            <span
+              className={`${
+                userVote === "DOWN_VOTE"
+                  ? "text-[#d35400]"
+                  : "text-gray-400 group-hover:text-[#d35400]"
+              } transition-all duration-300`}
+            >
+              {voteCount.downvotes} Downvotes
             </span>
           </div>
         </div>
