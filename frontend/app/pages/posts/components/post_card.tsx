@@ -215,6 +215,15 @@ export function PostCard({ post, setMessage, setType }: PostCardProps) {
                   </div>
                 )}
               </div>
+              <div className="flex items-center space-x-2">
+                <span className="font-medium">
+                  {currentPost.relationships?.author?.attributes?.username}
+                </span>
+                <span className="text-sm text-gray-400">
+                  (Score:{" "}
+                  {currentPost.relationships?.author?.attributes?.score || 0})
+                </span>
+              </div>
               <span className="flex flex-wrap">
                 {currentPost.attributes.tags?.map((tag, index) => (
                   <span

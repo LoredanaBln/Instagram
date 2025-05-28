@@ -5,12 +5,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
-import main.config.Constants;
 import main.interfaces.IImageProvider;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import static main.config.Constants.LOCAL_BASE_URL;
 
 @Service
 public class LocalImageProvider implements IImageProvider {
@@ -30,7 +31,7 @@ public class LocalImageProvider implements IImageProvider {
 
   @Override
   public String getUrl(String filename) {
-    return Constants.LOCAL_BASE_URL + filename.replace("\\", "/");
+    return LOCAL_BASE_URL + filename.replace("\\", "/");
   }
 
   @Override
