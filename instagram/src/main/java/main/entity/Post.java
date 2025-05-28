@@ -63,7 +63,7 @@ public class Post {
   protected void onCreate() {
     this.createdAt = LocalDateTime.now();
     this.updatedAt = LocalDateTime.now();
-    this.status = PostStatus.DRAFT;
+    this.status = PostStatus.NEW;
     this.is_commentable = true;
   }
 

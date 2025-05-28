@@ -54,17 +54,28 @@ export function PostForm({ setMessage, setType, submitButtonText, titlePlacehold
         e.preventDefault();
         if (isSubmitting) return;
 
-        setIsSubmitting(true);
-        try {
-          validateData();
-          const tagArray = tags
-            .split(",")
-            .map((tag) => tag.trim())
-            .filter((tag) => tag.length > 0)
-            .map((tag) => {
-              const cleanTag = tag.replace(/^#+/, "").trim();
-              return `#${cleanTag}`;
-            });
+    setIsSubmitting(true);
+    try {
+      validateData();
+
+      // If this is a comment, check if the parent post allows comments
+      if (postParentId) {
+        const parentPost = await new PostsService().find(
+          postParentId.toString()
+        );
+        if (parentPost.attributes.status === "OUTDATED") {
+          throw new Error("Comments are disabled for this post");
+        }
+      }
+
+      const tagArray = tags
+        .split(",")
+        .map((tag) => tag.trim())
+        .filter((tag) => tag.length > 0)
+        .map((tag) => {
+          const cleanTag = tag.replace(/^#+/, "").trim();
+          return `#${cleanTag}`;
+        });
 
           await new PostsService().create(
             postTitle,

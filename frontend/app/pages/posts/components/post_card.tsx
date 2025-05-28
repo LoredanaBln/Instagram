@@ -7,6 +7,8 @@ import {
   faPen,
   faStar,
   faTrash,
+  faLock,
+  faLockOpen,
 } from "@fortawesome/free-solid-svg-icons";
 import { DateFormatter } from "~/utils/date_formatter";
 import React, { useState, useEffect } from "react";
@@ -41,6 +43,11 @@ export function PostCard({ post, setMessage, setType }: PostCardProps) {
   const voteService = new VoteService();
 
   useEffect(() => {
+    new PostsService().find(post.id.toString()).then((freshPost) => {
+      setCurrentPost(freshPost);
+    });
+  }, [post.id]);
+  useEffect(() => {
     const fetchPostData = async () => {
       try {
         const freshPost = await new PostsService().find(post.id.toString());
@@ -65,6 +72,25 @@ export function PostCard({ post, setMessage, setType }: PostCardProps) {
 
     fetchPostData();
   }, [post.id]);
+
+  function deletePost(event: React.MouseEvent<HTMLSpanElement>, id: number) {
+    event.preventDefault();
+
+    new PostsService()
+      .delete(id.toString())
+      .then(() => {
+        setType(AlertDestructiveEnum.success);
+        setMessage("Post deleted successfully.");
+      })
+      .catch((err) => {
+        setType(AlertDestructiveEnum.error);
+        setMessage(
+          err instanceof Error
+            ? err.message
+            : "An unknown error occurred. Hold tight!"
+        );
+      });
+  }
 
   async function handleVote(type: VoteType) {
     if (isVoting) return;
@@ -107,27 +133,35 @@ export function PostCard({ post, setMessage, setType }: PostCardProps) {
     }
   }
 
-  function deletePost(event: React.MouseEvent<HTMLSpanElement>, id: number) {
-    event.preventDefault();
-
-        new PostsService().delete(id.toString()).then(() => {
-            setType(AlertDestructiveEnum.success);
-            setMessage("Post deleted successfully.");
-        }).catch((err) => {
-            setType(AlertDestructiveEnum.error);
-            setMessage(err instanceof Error ? err.message : "An unknown error occurred. Hold tight!")
-        });
+  async function handleToggleComments() {
+    try {
+      const updatedPost = await new PostsService().toggleCommentability(
+        currentPost.id.toString()
+      );
+      setCurrentPost(updatedPost);
+      setType(AlertDestructiveEnum.success);
+      setMessage(
+        updatedPost.attributes.status === "OUTDATED"
+          ? "Comments disabled successfully"
+          : "Comments enabled successfully"
+      );
+    } catch (error) {
+      setType(AlertDestructiveEnum.error);
+      setMessage(
+        error instanceof Error ? error.message : "Failed to toggle comments"
+      );
     }
+  }
 
-    function canEditPost(post: Post): boolean {
-        const loggedUser = sessionStorage.getItem("username");
-        const role = sessionStorage.getItem("role");
-        const authorUsername = post.relationships?.author?.attributes?.username;
+  function canEditPost(post: Post): boolean {
+    const loggedUser = sessionStorage.getItem("username");
+    const role = sessionStorage.getItem("role");
+    const authorUsername = post.relationships?.author?.attributes?.username;
 
-        if (role == "MODERATOR") return true;
+    if (role == "MODERATOR") return true;
 
-        return authorUsername === loggedUser;
-    }
+    return authorUsername === loggedUser;
+  }
 
   return (
     <div className="bg-gradient-to-br from-[#e74c3c] via-[#641e16] to-[#ec7063] p-[2px] rounded-lg">
@@ -143,6 +177,26 @@ export function PostCard({ post, setMessage, setType }: PostCardProps) {
                 {canEditPost(currentPost) && (
                   <div className="flex items-center justify-end">
                     <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        handleToggleComments();
+                      }}
+                      className="text-orange-600 mr-4 text-sm cursor-pointer hover:underline"
+                    >
+                      {currentPost.attributes.status === "OUTDATED"
+                        ? "Enable comments"
+                        : "Disable comments"}
+                      <FontAwesomeIcon
+                        icon={
+                          currentPost.attributes.status === "OUTDATED"
+                            ? faLockOpen
+                            : faLock
+                        }
+                        className="ml-2"
+                      />
+                    </button>
+                    <button
                       onClick={() =>
                         (window.location.href = `/posts/${currentPost.id.toString()}/edit`)
                       }
@@ -152,7 +206,7 @@ export function PostCard({ post, setMessage, setType }: PostCardProps) {
                       <FontAwesomeIcon icon={faPen} className="ml-2" />
                     </button>
                     <span
-                      className="text-red-700 text-sm cursor-pointer hover:underline"
+                      className="text-orange-600 text-sm cursor-pointer hover:underline"
                       onClick={(e) => deletePost(e, currentPost.id)}
                     >
                       Delete
@@ -173,7 +227,16 @@ export function PostCard({ post, setMessage, setType }: PostCardProps) {
               </span>
               <span className="text-gray-400">
                 {currentPost.relationships?.author?.attributes.username} ·{" "}
-                {DateFormatter.formatDate(post.attributes.createdAt)} · DRAFT
+                {DateFormatter.formatDate(post.attributes.createdAt)} ·{" "}
+                {currentPost.attributes.status === "NEW"
+                  ? "New"
+                  : currentPost.attributes.status === "ACTIVE"
+                  ? "Active"
+                  : currentPost.attributes.status === "FIRST_REACTION"
+                  ? "First Reaction"
+                  : currentPost.attributes.status === "OUTDATED"
+                  ? "Outdated"
+                  : currentPost.attributes.status}
               </span>
             </div>
           </div>
@@ -202,18 +265,42 @@ export function PostCard({ post, setMessage, setType }: PostCardProps) {
               {voteCount.count}
             </span>
           </div>
-          <div className="group flex items-center space-x-2 cursor-pointer transition-all duration-500">
+          <button
+            className={`group flex items-center space-x-2 ${
+              currentPost.attributes.status !== "OUTDATED"
+                ? "cursor-pointer"
+                : "cursor-not-allowed opacity-50"
+            } transition-all duration-500`}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              if (currentPost.attributes.status !== "OUTDATED") {
+                window.location.href = `/posts/${currentPost.id}`;
+              }
+            }}
+            disabled={currentPost.attributes.status === "OUTDATED"}
+          >
             <div className="relative">
               <div className="absolute w-6 h-6 rounded-full group-hover:scale-100 bg-[#3498db] transition-all duration-200 opacity-20 scale-0 -translate-x-1/5 -translate-y-1/16" />
               <FontAwesomeIcon
                 icon={faComment}
-                className="text-gray-400 group-hover:text-[#3498db] relative transition-all duration-300"
+                className={`text-gray-400 ${
+                  currentPost.attributes.status !== "OUTDATED"
+                    ? "group-hover:text-[#3498db]"
+                    : ""
+                } relative transition-all duration-300`}
               />
             </div>
-            <span className="text-gray-400 group-hover:text-[#3498db] transition-all duration-300">
+            <span
+              className={`text-gray-400 ${
+                currentPost.attributes.status !== "OUTDATED"
+                  ? "group-hover:text-[#3498db]"
+                  : ""
+              } transition-all duration-300`}
+            >
               {currentPost.relationships?.comments?.length ?? "0"}
             </span>
-          </div>
+          </button>
           <div
             className="group flex items-center space-x-2 cursor-pointer transition-all duration-500"
             onClick={(e) => {

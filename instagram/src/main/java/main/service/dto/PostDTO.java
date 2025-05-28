@@ -37,7 +37,8 @@ public class PostDTO {
                 : new LocalImageProvider().getUrl(post.getImagePath()),
             post.getCreatedAt(),
             post.getUpdatedAt(),
-            post.getTags().stream().map(tag -> tag.getTitle()).collect(Collectors.toList()));
+            post.getTags().stream().map(tag -> tag.getTitle()).collect(Collectors.toList()),
+            post.is_commentable());
     this.relationships =
         includeRelationships
             ? new PostRelationships(post.getAuthor(), post.getParent(), post.getComments())
@@ -64,6 +65,7 @@ public class PostDTO {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private List<String> tags;
+    private boolean is_commentable;
   }
 
   @Data
