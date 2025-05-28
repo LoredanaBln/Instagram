@@ -7,10 +7,11 @@ import lombok.RequiredArgsConstructor;
 import main.security.RequireAuthentication;
 import main.service.UserService;
 import main.service.dto.UserDTO;
-import main.service.dto.UserUpdateRequest;
+import main.service.dto.UserBanRequest;
 import main.service.dto.userAuthentication.AuthenticationResponse;
 import main.service.dto.userAuthentication.LoginRequest;
 import main.service.dto.userAuthentication.RegistrationRequest;
+import main.service.dto.UpdateProfileRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -31,7 +32,7 @@ public class UserController {
 
   @PostMapping
   public ResponseEntity<UserDTO> create(
-      @RequestBody RegistrationRequest request, HttpSession session) throws IOException {
+          @RequestBody RegistrationRequest request, HttpSession session) throws IOException {
     UserDTO createdUser = userService.create(request, session);
 
     return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
@@ -49,7 +50,7 @@ public class UserController {
   @PutMapping("/{id}")
   @RequireAuthentication
   public ResponseEntity<UserDTO> update(
-      @PathVariable Long id, @RequestBody UserUpdateRequest userDTO, HttpSession session) {
+          @PathVariable Long id, @RequestBody UserBanRequest userDTO, HttpSession session) {
     try {
       return ResponseEntity.ok(userService.update(id, userDTO, session));
     } catch (RuntimeException e) {
@@ -98,5 +99,37 @@ public class UserController {
   public ResponseEntity<Void> logout(HttpSession session) {
     session.invalidate();
     return ResponseEntity.noContent().build();
+  }
+
+  @PutMapping("/profile/{id}")
+  @RequireAuthentication
+  public ResponseEntity<UserDTO> updateProfile(
+          @PathVariable Long id,
+          @ModelAttribute UpdateProfileRequest userUpdateRequest,
+          HttpSession session) {
+    try {
+      return ResponseEntity.ok(userService.updateProfile(id, userUpdateRequest, session));
+    } catch (RuntimeException e) {
+      if (e.getMessage().contains("Not authenticated")) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+      }
+      if (e.getMessage().contains("Not authorized")) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+      }
+      if (e.getMessage().contains("Username already exists")) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).build();
+      }
+      return ResponseEntity.badRequest().build();
+    }
+  }
+
+  @GetMapping("/username/{username}")
+  public ResponseEntity<UserDTO> getByUsername(@PathVariable String username) {
+    try {
+      UserDTO user = userService.getByUsername(username);
+      return ResponseEntity.ok(user);
+    } catch (RuntimeException e) {
+      return ResponseEntity.notFound().build();
+    }
   }
 }

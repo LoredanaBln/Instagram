@@ -1,83 +1,138 @@
-import {ENDPOINTS} from "~/config/endpoint";
-import type {AuthenticateResponse} from "~/services/dtos/responses/authenticate_response";
-import type {LoginDTO} from "~/services/dtos/requests/login_dto";
-import {api} from "~/config/api";
-import type {RegisterDTO} from "~/services/dtos/requests/register_dto";
-import type {User} from "~/entities/user";
+import { ENDPOINTS } from "~/config/endpoint";
+import type { AuthenticateResponse } from "~/services/dtos/responses/authenticate_response";
+import type { LoginDTO } from "~/services/dtos/requests/login_dto";
+import { api } from "~/config/api";
+import type { RegisterDTO } from "~/services/dtos/requests/register_dto";
+import type { User } from "~/entities/user";
+import type { UpdateProfileDTO } from "~/services/dtos/requests/update_profile_dto";
 
 export class UsersRepository {
-    async login(data: LoginDTO): Promise<AuthenticateResponse> {
-        try {
-            const response = await api.post<AuthenticateResponse>('/api/users/login', data, {
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                },
-                withCredentials: true,
-            })
-
-
-            return response.data;
-        } catch (error) {
-            // @ts-ignore
-            if ((error as AxiosError).response.status === 403) {
-                localStorage.setItem("isBanned", "1");
-                window.location.reload();
-            }
-            throw new Error('Failed to login the user');
+  async login(data: LoginDTO): Promise<AuthenticateResponse> {
+    try {
+      const response = await api.post<AuthenticateResponse>(
+        "/api/users/login",
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          withCredentials: true,
         }
+      );
+
+      return response.data;
+    } catch (error) {
+      // @ts-ignore
+      if ((error as AxiosError).response.status === 403) {
+        localStorage.setItem("isBanned", "1");
+        window.location.reload();
+      }
+      throw new Error("Failed to login the user");
     }
+  }
 
-    async get(): Promise<User[]> {
-        try {
-            const response = await api.get<User[]>(ENDPOINTS.USERS);
+  async get(): Promise<User[]> {
+    try {
+      const response = await api.get<User[]>(ENDPOINTS.USERS);
 
-            return response.data;
-        } catch (error) {
-            throw new Error('Failed to fetch posts');
+      return response.data;
+    } catch (error) {
+      throw new Error("Failed to fetch posts");
+    }
+  }
+
+  async register(data: RegisterDTO): Promise<AuthenticateResponse> {
+    try {
+      const response = await api.post<AuthenticateResponse>(
+        "/api/users",
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          withCredentials: true,
         }
+      );
+
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      throw new Error("Failed to register the user");
     }
+  }
+  async logout() {
+    try {
+      await api.post<AuthenticateResponse>("/api/users/logout", null, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        withCredentials: true,
+      });
+    } catch (error) {
+      console.error(error);
+      throw new Error("Failed to register the user");
+    }
+  }
 
-    async register(data: RegisterDTO): Promise<AuthenticateResponse> {
-        try {
-            const response = await api.post<AuthenticateResponse>('/api/users', data, {
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                },
-                withCredentials: true,
-            });
+  async update(data: { id: number; banned: boolean }): Promise<User> {
+    const response = await api.put<User>(
+      `/api/users/${data.id.toString()}`,
+      data,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        withCredentials: true,
+      }
+    );
 
-            return response.data;
-        } catch (error) {
-            console.error(error);
-            throw new Error('Failed to register the user');
+    return response.data;
+  }
+
+  async getByUsername(username: string): Promise<User> {
+    try {
+      const response = await api.get<User>(
+        `${ENDPOINTS.USERS}/username/${username}`,
+        {
+          headers: {
+            Accept: "application/json",
+          },
+          withCredentials: true,
         }
+      );
+      return response.data;
+    } catch (error) {
+      throw new Error("Failed to fetch user profile");
     }
-    async logout() {
-        try {
-            await api.post<AuthenticateResponse>('/api/users/logout', null, {
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                },
-                withCredentials: true,
-            });
-        } catch (error) {
-            console.error(error);
-            throw new Error('Failed to register the user');
+  }
+
+  async updateProfile(data: UpdateProfileDTO): Promise<User> {
+    try {
+      const formData = new FormData();
+      formData.append("username", data.username);
+      formData.append("phoneNumber", data.phoneNumber);
+      if (data.imagePath) {
+        formData.append("image", data.imagePath);
+      }
+
+      const response = await api.put<User>(
+        `${ENDPOINTS.USERS}/profile/${data.id}`,
+        formData,
+        {
+          headers: {
+            Accept: "application/json",
+          },
+          withCredentials: true,
         }
+      );
+      return response.data;
+    } catch (error) {
+      throw new Error("Failed to update profile");
     }
+  }
 
-    async update(data: {id: number; banned: boolean}): Promise<User> {
-        const response = await api.put<User>(`/api/users/${data.id.toString()}`, data, {
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-            },
-            withCredentials: true,
-        });
-
-        return response.data;
-    }
 }

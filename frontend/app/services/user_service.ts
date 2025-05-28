@@ -1,8 +1,9 @@
-import {UsersRepository} from "~/repositories/user_repository";
-import type {LoginDTO} from "~/services/dtos/requests/login_dto";
-import type {AuthenticateResponse} from "~/services/dtos/responses/authenticate_response";
-import type {RegisterDTO} from "~/services/dtos/requests/register_dto";
-import type {User} from "~/entities/user";
+import { UsersRepository } from "~/repositories/user_repository";
+import type { LoginDTO } from "~/services/dtos/requests/login_dto";
+import type { AuthenticateResponse } from "~/services/dtos/responses/authenticate_response";
+import type { RegisterDTO } from "~/services/dtos/requests/register_dto";
+import type { User } from "~/entities/user";
+import type { UpdateProfileDTO } from "~/services/dtos/requests/update_profile_dto";
 
 export class UserService {
     private userRepository: UsersRepository;
@@ -15,6 +16,13 @@ export class UserService {
         return this.userRepository.get();
     }
 
+  async getByUsername(username: string): Promise<User> {
+    return this.userRepository.getByUsername(username);
+  }
+
+  async updateProfile(data: UpdateProfileDTO): Promise<User> {
+    return this.userRepository.updateProfile(data);
+  }
 
     async login(data: LoginDTO): Promise<AuthenticateResponse> {
         const response = await this.userRepository.login(data);

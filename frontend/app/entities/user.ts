@@ -15,6 +15,7 @@ export interface UserAttributes {
     score: number;
     isBanned: boolean;
     imagePath?: string;
+    phoneNumber?: string;
 }
 
 export interface UserRelationships {

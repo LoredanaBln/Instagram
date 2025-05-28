@@ -10,6 +10,7 @@ import main.entity.Post;
 import main.entity.User;
 import main.entity.UserType;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import main.service.LocalImageProvider;
 
 @Data
 @NoArgsConstructor
@@ -24,7 +25,13 @@ public class UserDTO {
     this.id = user.getId();
     this.attributes =
         new UserAttributes(
-            user.getUsername(), user.getEmail(), user.getRole(), user.getScore(), user.isBanned());
+            user.getUsername(),
+            user.getEmail(),
+            user.getRole(),
+            user.getScore(),
+            user.isBanned(),
+            user.getImagePath() == null ? null : new LocalImageProvider().getUrl(user.getImagePath()),
+            user.getPhoneNumber());
     this.relationships = includeRelationships ? new UserRelationships(user.getPosts()) : null;
     this.links = new UserLinks(this.id.toString());
   }
@@ -46,6 +53,8 @@ public class UserDTO {
     private UserType role;
     private Double score;
     private Boolean isBanned;
+    private String imagePath;
+    private String phoneNumber;
   }
 
   @Data

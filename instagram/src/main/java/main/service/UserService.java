@@ -9,10 +9,11 @@ import main.entity.User;
 import main.entity.UserType;
 import main.repository.IUserRepository;
 import main.service.dto.UserDTO;
-import main.service.dto.UserUpdateRequest;
+import main.service.dto.UserBanRequest;
 import main.service.dto.userAuthentication.AuthenticationResponse;
 import main.service.dto.userAuthentication.LoginRequest;
 import main.service.dto.userAuthentication.RegistrationRequest;
+import main.service.dto.UpdateProfileRequest;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -59,7 +60,7 @@ public class UserService {
         .orElseThrow(() -> new RuntimeException("User not found with ID: " + id));
   }
 
-  public UserDTO update(Long id, UserUpdateRequest request, HttpSession session) {
+  public UserDTO update(Long id, UserBanRequest request, HttpSession session) {
     User authenticatedUser = authenticationService.getAuthenticatedUser(session);
     User user =
         userRepository
@@ -120,5 +121,45 @@ public class UserService {
     session.setAttribute("userId", user.getId());
 
     return new AuthenticationResponse(user.getUsername(), user.getRole(), true);
+  }
+
+  public UserDTO updateProfile(Long id, UpdateProfileRequest request, HttpSession session) {
+    User authenticatedUser = authenticationService.getAuthenticatedUser(session);
+    User user = userRepository
+        .findById(id)
+        .orElseThrow(() -> new RuntimeException("User not found with ID: " + id));
+
+    // Only allow users to update their own profile
+    if (!authenticatedUser.getId().equals(id)) {
+      throw new RuntimeException("Not authorized to update this user");
+    }
+
+    // Check if username is already taken by another user
+    if (!request.getUsername().equals(user.getUsername()) && 
+        userRepository.findByUsername(request.getUsername()).isPresent()) {
+      throw new RuntimeException("Username already exists");
+    }
+
+    user.setUsername(request.getUsername());
+    user.setPhoneNumber(request.getPhoneNumber());
+
+    // Handle image upload if provided
+    if (request.getImage() != null && !request.getImage().isEmpty()) {
+      try {
+        user.setImagePath(new LocalImageProvider().saveImage(request.getImage()));
+      } catch (IOException e) {
+        throw new RuntimeException("Failed to upload image: " + e.getMessage());
+      }
+    }
+
+    User savedUser = userRepository.save(user);
+    return UserDTO.withRelationships(savedUser);
+  }
+
+  public UserDTO getByUsername(String username) {
+    return userRepository
+        .findByUsername(username)
+        .map(UserDTO::withRelationships)
+        .orElseThrow(() -> new RuntimeException("User not found with username: " + username));
   }
 }
