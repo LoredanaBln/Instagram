@@ -86,6 +86,30 @@ public class PostController {
     }
   }
 
+  @PutMapping("/{id}/toggle-comments")
+  @RequireAuthentication
+  public ResponseEntity<PostDTO> toggleCommentability(@PathVariable Long id, HttpSession session) {
+    try {
+      return ResponseEntity.ok(postService.toggleCommentability(id, session));
+    } catch (RuntimeException e) {
+      String message = e.getMessage();
+      if (message == null) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+      }
+
+      if (message.contains("Not authenticated")) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+      }
+      if (message.contains("Not authorized")) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+      }
+      if (message.contains("Post not found")) {
+        return ResponseEntity.notFound().build();
+      }
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+  }
+
   @DeleteMapping("/{id}")
   @RequireAuthentication
   public ResponseEntity<Void> delete(@PathVariable Long id, HttpSession session) {

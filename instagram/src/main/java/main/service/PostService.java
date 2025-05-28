@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import main.entity.Post;
+import main.entity.PostStatus;
 import main.entity.User;
 import main.entity.UserType;
 import main.repository.IPostRepository;
-import main.repository.ITagRepository;
 import main.service.dto.PostCreateRequest;
 import main.service.dto.PostDTO;
 import main.service.dto.PostUpdateRequest;
@@ -127,4 +127,33 @@ public class PostService {
     // Clean up any unused tags
     tagService.deleteUnusedTags();
   }
+
+    @Transactional
+    public PostDTO toggleCommentability(Long id, HttpSession session) {
+        User authenticatedUser = authenticationService.getAuthenticatedUser(session);
+        Post post = postRepository
+                .findById(id)
+                .orElseThrow(() -> new RuntimeException("Post not found with ID: " + id));
+
+        if (!post.getAuthor().getId().equals(authenticatedUser.getId())
+                && !authenticatedUser.getRole().equals(UserType.MODERATOR)) {
+            throw new RuntimeException("Not authorized to modify this post");
+        }
+
+        post.set_commentable(!post.is_commentable());
+
+        if (!post.is_commentable()) {
+            post.setStatus(PostStatus.OUTDATED);
+        } else {
+            if (post.getComments().isEmpty()) {
+                post.setStatus(PostStatus.NEW);
+            } else if (post.getComments().size() == 1) {
+                post.setStatus(PostStatus.FIRST_REACTION);
+            } else {
+                post.setStatus(PostStatus.ACTIVE);
+            }
+        }
+
+        return PostDTO.withRelationships(postRepository.save(post));
+    }
 }

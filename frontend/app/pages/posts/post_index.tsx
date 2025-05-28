@@ -26,8 +26,10 @@ export function PostIndex({ posts }: PostIndexProps) {
     const users = new Set<string>();
 
     posts.forEach((post) => {
-      post.attributes.tags?.forEach((tag) => tags.add(tag));
-      if (post.relationships.author) {
+      if (post.attributes?.tags) {
+        post.attributes.tags.forEach((tag) => tags.add(tag));
+      }
+      if (post.relationships?.author?.attributes?.username) {
         users.add(post.relationships.author.attributes.username);
       }
     });

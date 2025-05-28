@@ -60,4 +60,7 @@ export class PostsService {
         return this.postsRepository.update(newPost);
     }
 
+  async toggleCommentability(id: string): Promise<Post> {
+    return this.postsRepository.toggleCommentability(id);
+  }
 }

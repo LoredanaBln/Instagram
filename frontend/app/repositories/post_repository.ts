@@ -60,6 +60,21 @@ export class PostRepository {
 
         const response = await api.put<Post>(ENDPOINTS.POSTS + `/${data.id}`, formData);
 
-        return response.data;
+     return response.data;
+  }
+
+  async toggleCommentability(id: string): Promise<Post> {
+    try {
+      const response = await api.put<Post>(
+        ENDPOINTS.POSTS + `/${id}/toggle-comments`
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error toggling commentability:", error);
+      if (error instanceof Error) {
+        throw new Error(`Failed to toggle commentability: ${error.message}`);
+      }
+      throw new Error("Failed to toggle commentability: Unknown error");
     }
+  }
 }

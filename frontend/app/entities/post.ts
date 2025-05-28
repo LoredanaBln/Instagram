@@ -15,11 +15,12 @@ export interface Post {
 export interface PostAttributes {
     title: string;
     text: string;
-    status: string;
+    status: "NEW" | "ACTIVE" | "FIRST_REACTION" | "OUTDATED";
     imagePath: string;
     createdAt: string;
     updatedAt: string;
     tags: string[];
+    is_commentable: boolean;
 }
 
 export interface PostRelationships {
