@@ -18,6 +18,7 @@ public class VoteService {
     private final IVoteRepository voteRepository;
     private final IPostRepository postRepository;
     private final AuthenticationService authenticationService;
+    private final ScoreService scoreService;
 
     @Transactional
     public Vote vote(Long postId, VoteType voteType, HttpSession session) {
@@ -33,21 +34,30 @@ public class VoteService {
         Vote existingVote = voteRepository.findByUser_IdAndPost_Id(user.getId(), postId)
                 .orElse(null);
 
+        Vote savedVote;
         if (existingVote != null) {
             if (existingVote.getType() == voteType) {
+                // If same vote type, remove the vote and subtract points
+                scoreService.calculateScore(existingVote, true);
                 voteRepository.delete(existingVote);
-                return null;
+                savedVote = null;
             } else {
+                // If different vote type, update the vote and recalculate points
+                scoreService.calculateScore(existingVote, true);
                 existingVote.setType(voteType);
-                return voteRepository.save(existingVote);
+                savedVote = voteRepository.save(existingVote);
+                scoreService.calculateScore(savedVote, false);
             }
+        } else {
+            Vote vote = new Vote();
+            vote.setPost(post);
+            vote.setUser(user);
+            vote.setType(voteType);
+            savedVote = voteRepository.save(vote);
+            scoreService.calculateScore(savedVote, false);
         }
 
-        Vote vote = new Vote();
-        vote.setPost(post);
-        vote.setUser(user);
-        vote.setType(voteType);
-        return voteRepository.save(vote);
+        return savedVote;
     }
 
     public VoteCountDTO getVoteCount(Long postId) {
