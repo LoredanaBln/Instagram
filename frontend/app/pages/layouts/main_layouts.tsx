@@ -26,9 +26,7 @@ const Layout = ({ children }: {children: React.ReactNode}) => {
                     <nav className="space-y-3">
                         <a href="/posts" className="block font-medium hover:text-[#e74c3c]">Home</a>
                         <a href="/posts" className="block font-medium hover:text-[#e74c3c]">Explore</a>
-                        <a href="#" className="block font-medium hover:text-[#e74c3c]">Notifications</a>
-                        <a href="#" className="block font-medium hover:text-[#e74c3c]">Messages</a>
-                        <a href="#" className="block font-medium hover:text-[#e74c3c]">Profile</a>
+                        <a href="/profile" className="block font-medium hover:text-[#e74c3c]">Profile</a>
                         {canAccessAdminPortal() && (
                             <a href="/users" className="block font-medium hover:text-[#e74c3c]">Admin Portal</a>
                         )}
@@ -112,18 +110,6 @@ const Layout = ({ children }: {children: React.ReactNode}) => {
                         </label>
                       </div>
                     </div>
-                  </div>
-
-                  {/* Trends */}
-                  <div className="bg-[#111] rounded-xl p-4 border border-gray-800">
-                    <h2 className="font-bold text-lg mb-2 text-[#e74c3c]">
-                      Trends for you
-                    </h2>
-                    <ul className="space-y-2 text-sm text-gray-300">
-                        <li className="cursor-pointer">#ReactJS</li>
-                        <li>#TailwindCSS</li>
-                        <li>#DarkMode</li>
-                    </ul>
                   </div>
                 </div>
             </aside>

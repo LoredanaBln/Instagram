@@ -5,19 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3a06219a-0e59-490a-972e-c014166d5682" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/app/pages/profile/profile.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/routes/profile.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/services/dtos/requests/update_profile_dto.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../instagram/src/main/java/main/service/dto/UpdateProfileRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/entities/post.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/entities/post.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/pages/posts/components/post_card.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/posts/components/post_card.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/pages/posts/components/post_form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/posts/components/post_form.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/pages/posts/post_index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/posts/post_index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/repositories/post_repository.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/repositories/post_repository.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/services/dtos/responses/post_dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/dtos/responses/post_dto.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/services/post_service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/post_service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../instagram/src/main/java/main/controller/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../instagram/src/main/java/main/controller/PostController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../instagram/src/main/java/main/entity/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/../instagram/src/main/java/main/entity/Post.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../instagram/src/main/java/main/entity/PostStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/../instagram/src/main/java/main/entity/PostStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../instagram/src/main/java/main/service/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../instagram/src/main/java/main/service/PostService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../instagram/src/main/java/main/service/dto/PostDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../instagram/src/main/java/main/service/dto/PostDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/entities/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/entities/user.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/pages/layouts/main_layouts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/layouts/main_layouts.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/repositories/user_repository.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/repositories/user_repository.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/user_service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/user_service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../instagram/src/main/java/main/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../instagram/src/main/java/main/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../instagram/src/main/java/main/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../instagram/src/main/java/main/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../instagram/src/main/java/main/service/dto/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../instagram/src/main/java/main/service/dto/UserDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../instagram/src/main/java/main/service/dto/UserUpdateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../instagram/src/main/java/main/service/dto/UserBanRequest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,17 +28,48 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2xibmyOTJRCGAjxUcNcMb1DJBGg" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Vitest.posts_service.test.ts.executor": "Run",
-    "git-widget-placeholder": "POST__STATUS",
+    "git-widget-placeholder": "PROFILE__PAGE",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "npm.dev.executor": "Run",
-    "ts.external.directory.path": "E:\\AN3\\SEM2\\ps_\\assignment\\frontend\\node_modules\\typescript\\lib"
+    "ts.external.directory.path": "E:\\AN3\\SEM2\\ps_\\assignment\\frontend\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-WS-242.23726.96" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3a06219a-0e59-490a-972e-c014166d5682" name="Changes" comment="" />
+      <created>1748441318613</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1748441318613</updated>
+      <workItem from="1748441320848" duration="11299000" />
+    </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="merging main" />
