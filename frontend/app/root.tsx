@@ -6,12 +6,18 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
+import { useEffect, useState } from "react";
 
 import type { Route } from "./+types/root";
 import "./app.css";
 import MiddlewareWrapper from "~/routes/middlewares/MiddlewareWrapper";
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
   return (
     <html lang="en">
       <head>
@@ -21,6 +27,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
+        {hydrated && (
+          <div data-testid="app-loaded" style={{ display: 'none' }} />
+        )}
+
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -31,7 +41,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return (
-      <MiddlewareWrapper>
+      <MiddlewareWrapper> 
+      
         <Outlet />
       </MiddlewareWrapper>
   );
